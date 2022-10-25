@@ -13,8 +13,7 @@ class UnarProcess(AbstractUnarchive):
         self.log = common.get_logger(name=self.src_path)
 
     def handle(self, src_path, dest_path):
-        unar_cmd = UNARCHIVE_TYPE_COMMAND['unar_process']['comm_unar_prefix_cmd']
-        cmd = f"{unar_cmd} {dest_path} {src_path}".split()
+        cmd = f"unar -q -D -o {dest_path} {src_path}".split()
 
         return cmd if cmd else None
 

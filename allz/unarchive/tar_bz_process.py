@@ -13,9 +13,7 @@ class TarBzProcess(AbstractUnarchive):
         self.log = common.get_logger(name=self.src_path)
 
     def handle(self, src_path, dest_path):
-        unar_prefix_cmd = UNARCHIVE_TYPE_COMMAND['tar_bz_process']['comm_unar_prefix_cmd']
-        unar_suffix_cmd = UNARCHIVE_TYPE_COMMAND['tar_bz_process']['comm_unar_suffix_cmd']
-        cmd = f"{unar_prefix_cmd} {src_path} {unar_suffix_cmd} {dest_path}".split()
+        cmd = f"tar xjf {src_path} -C {dest_path}".split()
 
         return cmd if cmd else None
 

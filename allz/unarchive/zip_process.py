@@ -13,9 +13,7 @@ class ZipProcess(AbstractUnarchive):
         self.log = common.get_logger(name=self.src_path)
 
     def handle(self, src_path, dest_path):
-        unar_prefix_cmd = UNARCHIVE_TYPE_COMMAND['zip_process']['comm_unar_prefix_cmd']
-        unar_suffix_cmd = UNARCHIVE_TYPE_COMMAND['zip_process']['comm_unar_suffix_cmd']
-        cmd = f"{unar_prefix_cmd} {src_path} {unar_suffix_cmd}{dest_path}".split()
+        cmd = f"7z x {src_path} -o{dest_path}".split()
         
         return cmd if cmd else None        
 

@@ -9,25 +9,16 @@ UNARCHIVE_TYPE_KEY_MAPPING = {
 # 解压类型与解压命令、python处理脚本的module/class字典配置
 UNARCHIVE_TYPE_COMMAND = {
     "zip_process": {
-        "comm_unar_prefix_cmd": "7z x",
-        "comm_unar_middle_cmd": "",
-        "comm_unar_suffix_cmd": "-o",
         "process_module": "zip_process",
         "process_class": "ZipProcess"
     },
 
     "tar_bz_process": {
-        "comm_unar_prefix_cmd": "tar xjf",
-        "comm_unar_middle_cmd": "",
-        "comm_unar_suffix_cmd": "-C",
         "process_module": "tar_bz_process",
         "process_class": "TarBzProcess"
     },
 
     "unar_process": {
-        "comm_unar_prefix_cmd": "unar -q -D -o",
-        "comm_unar_middle_cmd": "",
-        "comm_unar_suffix_cmd": "",
         "process_module": "unar_process",
         "process_class": "UnarProcess"
     }
