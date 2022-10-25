@@ -4,7 +4,7 @@
 import importlib
 import os
 
-from uncompress_process.defs import UNARCHIVE_TYPE_KEY_MAPPING, UNARCHIVE_TYPE_COMMAND
+from uncompress_process.defs import (UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING)
 # from uncompress_process.defs import DAEMON_PROCESS
 from uncompress_process.libs.argparser import arg_parser
 from uncompress_process.libs.common import get_logger
