@@ -25,15 +25,15 @@ def Unarchive(src_path, dest_path):
     if is_archive:
         res, archive_type = archiveTester.is_support_archive_type(src_path)
         # 2.遍历配置的压缩类型找到对应的解压命令
-        archive_type_cmd_key = "unar_process"
+        archive_type_cmd_init = "unar_process"
         for type_key, type_value in UNARCHIVE_TYPE_KEY_MAPPING.items():
             if archive_type in type_value:
-                archive_type_cmd_key = type_key
+                archive_type_cmd_init = type_key
                 break
         
-        archive_type_cmd_value = UNARCHIVE_TYPE_COMMAND[archive_type_cmd_key]
-        process_module = archive_type_cmd_value['process_module']
-        process_class = archive_type_cmd_value['process_class']
+        archive_type_cmd_key = UNARCHIVE_TYPE_COMMAND[archive_type_cmd_init]
+        process_module = archive_type_cmd_key['process_module']
+        process_class = archive_type_cmd_key['process_class']
 
         # 3.动态调用解压脚本
         unar_module = importlib.import_module(base_package_path + process_module)

@@ -24,8 +24,7 @@ class AbstractUnarchive(ABC):
         start_time = time.time()
         self.log.info(f"开始处理压缩包: {src_path}")
         try:
-            unar_cmd = UNARCHIVE_TYPE_COMMAND['unar_process']['comm_unar_prefix_cmd']
-            cmd = f"{unar_cmd} {dest_path} {src_path}".split()
+            cmd = f"unar -q -D -o {dest_path} {src_path}".split()
 
             # dest_path不存在，则新建目录
             if not os.path.exists(dest_path):

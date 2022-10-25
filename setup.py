@@ -8,7 +8,8 @@ setuptools.setup(
     version="0.0.1",
     author="opendatalab",
     author_email="yoyoo10000@gmail.com",
-    description="A universal command line tool for compression and decompression",
+    description=
+    "A universal command line tool for compression and decompression",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/opendatalab/allz/",
@@ -21,5 +22,9 @@ setuptools.setup(
     install_requires=[
         'importlib',
     ],
-    python_requires='>=3.7'
+    python_requires='>=3.7',
+    keywords='python, compress, decompress, archive',
+    entry_points={'console_scripts': [
+        'allz = allz.cli.cmd:main',
+    ]},
 )
