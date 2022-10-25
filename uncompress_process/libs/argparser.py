@@ -9,7 +9,6 @@ class ArgParser(object):
     """
     def __init__(self, ):
         parser = argparse.ArgumentParser(description='压缩包解压参数解析')
-        # parser.add_argument("--archive-file-type", nargs="*", default='.tar .gz .tar.bz2 .tar.bz .zip .7z .tar.lz .tar.lzma .tar.lzo .tar.z .xz'.split(), type=list, help="系统可以解压的压缩文件后缀，例如zip,tgz,tar,tar.gz")
         parser.add_argument("--src-path", nargs="?", default='/mnt/unarchive_dataset_tmp', type=str, help="压缩包的源路径，路径含压缩包的文件名称")
         parser.add_argument("--dest-path", nargs="?", default='/mnt/unarchive_dataset_tmp', type=str, help="压缩包的目标路径，路径是目录名称")
 

@@ -12,8 +12,6 @@ class TarBzProcess(AbstractUnarchive):
     def __init__(self):
         super().__init__()
         self.args = arg_parser()
-        self.unar_cmd = self.args.unar_cmd
-        self.archive_type = self.args.archive_type
         self.src_path = self.args.src_path
         self.dest_path = self.args.dest_path
         self.log = common.get_logger(name=self.src_path)

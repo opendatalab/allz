@@ -12,9 +12,6 @@ def get_logger(name: str):
     return mylogger
 
 
-# mylogger = get_logger("common")
-
-
 def on_success(src_path: str, des_path: str) -> None:
     mylogger = get_logger("common")
     mylogger.info(f"压缩包{src_path} 解压到 {des_path} 处理成功")
