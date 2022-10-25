@@ -33,7 +33,7 @@ UNARCHIVE_TYPE_COMMAND = {
     }
 }
 
-UNARCHIVE_FILE_TYPES_FILE = "unarchive_file_types.txt"
+UNARCHIVE_FILE_TYPES = ".tar .gz .tar.bz2 .tar.bz .zip .7z .tar.lz .tar.lzma .tar.lzo .tar.z .xz"
 
 # 日志打印出来的格式
 LOG_LEVEL = 'INFO'

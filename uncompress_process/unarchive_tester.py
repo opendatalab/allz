@@ -2,6 +2,7 @@ import os
 import re
 
 from uncompress_process.libs.argparser import ArgParser
+from uncompress_process.defs import UNARCHIVE_FILE_TYPES
 
 
 class ArchiveTypeTester(ArgParser):
@@ -10,7 +11,7 @@ class ArchiveTypeTester(ArgParser):
     """
     def __init__(self):
         super().__init__()
-        self.archive_file_type: str = self.args.archive_file_type
+        self.archive_file_type = str(UNARCHIVE_FILE_TYPES).split()
         self._init_ext_regex()
         self.split_volume_archive = "\\d{2,3}$"
 
