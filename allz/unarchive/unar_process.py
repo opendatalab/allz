@@ -1,5 +1,4 @@
 import allz.libs.common as common
-from allz.defs import UNARCHIVE_TYPE_COMMAND
 from allz.libs.abstract_unarchive import AbstractUnarchive
 from allz.libs.argparser import arg_parser
 
