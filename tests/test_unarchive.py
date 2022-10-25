@@ -7,7 +7,7 @@ import os
 import pytest
 
 # tar_bz_process imports
-from uncompress_process.unarchive.tar_bz_process import TarBzProcess
+from allz.unarchive.tar_bz_process import TarBzProcess
 
 # Current directory
 HERE = pathlib.Path(__file__).resolve().parent

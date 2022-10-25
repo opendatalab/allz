@@ -4,11 +4,11 @@
 import importlib
 import os
 
-from uncompress_process.defs import (UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING)
+from allz.defs import (UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING)
 # from uncompress_process.defs import DAEMON_PROCESS
-from uncompress_process.libs.argparser import arg_parser
-from uncompress_process.libs.common import get_logger
-from uncompress_process.unarchive_tester import ArchiveTypeTester
+from allz.libs.argparser import arg_parser
+from allz.libs.common import get_logger
+from allz.unarchive_tester import ArchiveTypeTester
 
 # import click
 

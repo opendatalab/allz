@@ -1,7 +1,7 @@
-import uncompress_process.libs.common as common
-from uncompress_process.defs import UNARCHIVE_TYPE_COMMAND
-from uncompress_process.libs.abstract_unarchive import AbstractUnarchive
-from uncompress_process.libs.argparser import arg_parser
+import allz.libs.common as common
+from allz.defs import UNARCHIVE_TYPE_COMMAND
+from allz.libs.abstract_unarchive import AbstractUnarchive
+from allz.libs.argparser import arg_parser
 
 
 class ZipProcess(AbstractUnarchive):

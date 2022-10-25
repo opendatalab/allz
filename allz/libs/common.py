@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import sys
 from loguru import logger
-from uncompress_process.defs import LOG_STDOUT_FORMAT, LOG_LEVEL, LOG_FORMAT
+from allz.defs import LOG_STDOUT_FORMAT, LOG_LEVEL, LOG_FORMAT
 
 
 def get_logger(name: str):

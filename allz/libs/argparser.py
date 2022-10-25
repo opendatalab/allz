@@ -1,6 +1,6 @@
 import argparse
 
-from uncompress_process.defs import LOG_LEVEL
+from allz.defs import LOG_LEVEL
 
 
 class ArgParser(object):

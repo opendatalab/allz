@@ -3,7 +3,7 @@ import subprocess
 import time
 from abc import ABC, abstractmethod
 
-from uncompress_process.defs import UNARCHIVE_TYPE_COMMAND
+from allz.defs import UNARCHIVE_TYPE_COMMAND
 
 import libs.common as common
 from libs.argparser import arg_parser
