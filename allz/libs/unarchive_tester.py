@@ -1,8 +1,8 @@
 import os
 import re
 
-from allz.libs.argparser import ArgParser
 from allz.defs import UNARCHIVE_FILE_TYPES
+from allz.libs.argparser import ArgParser
 
 
 class ArchiveTypeTester(ArgParser):

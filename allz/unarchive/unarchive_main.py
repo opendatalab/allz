@@ -1,14 +1,11 @@
-# import configparser
-# import os.path
-# from pathlib import Path
 import importlib
 import os
 
-from allz.defs import (UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING)
-# from uncompress_process.defs import DAEMON_PROCESS
+import allz.libs.common as common
+from allz.defs import UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING
 from allz.libs.argparser import arg_parser
 from allz.libs.common import get_logger
-from allz.unarchive_tester import ArchiveTypeTester
+from allz.libs.unarchive_tester import ArchiveTypeTester
 
 # import click
 
@@ -18,8 +15,10 @@ from allz.unarchive_tester import ArchiveTypeTester
 
 # @click.command()
 # @click.option('--config-path', default="./uncompress_type.ini", help='配置文件路径')
-def main(src_path, dest_path):
-    mylogger.info("解压程序已启动")
+def Unarchive(src_path, dest_path):
+    common.get_logger("Unarchive").info("准备开始解压...")
+    base_package_path = "allz.unarchive."
+
     # 1.判断压缩类型
     archiveTester = ArchiveTypeTester()
     is_archive = archiveTester.is_archive(src_path)
@@ -37,7 +36,7 @@ def main(src_path, dest_path):
         process_class = archive_type_cmd_value['process_class']
 
         # 3.动态调用解压脚本
-        unar_module = importlib.import_module(process_module)
+        unar_module = importlib.import_module(base_package_path + process_module)
         unar_class = getattr(unar_module, process_class)
         unar_instance = unar_class()
         unar_instance.main(src_path, dest_path)
@@ -65,7 +64,7 @@ if __name__ == '__main__':
             dest_path = "/".join([archive_dir, archive_file + "#"])
             dest_path_lst.append(dest_path)
             # print(archive_file, src_path, dest_path)
-            main(src_path, dest_path)
+            Unarchive(src_path, dest_path)
 
     # 2.1 测试压缩包是否解压成功
     for dest_path in dest_path_lst:

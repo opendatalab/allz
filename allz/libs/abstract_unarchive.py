@@ -3,10 +3,9 @@ import subprocess
 import time
 from abc import ABC, abstractmethod
 
+import allz.libs.common as common
 from allz.defs import UNARCHIVE_TYPE_COMMAND
-
-import libs.common as common
-from libs.argparser import arg_parser
+from allz.libs.argparser import arg_parser
 
 
 class AbstractUnarchive(ABC):
