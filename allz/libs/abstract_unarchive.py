@@ -4,15 +4,11 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 import allz.libs.common as common
-# from allz.libs.argparser import arg_parser
 
 
 class AbstractUnarchive(ABC):
     def __init__(self, thread_cnt=4):
         super().__init__()
-        # self.args = arg_parser()
-        # self.src_path = self.args.src_path
-        # self.dest_path = self.args.dest_path
         self.log = common.get_logger(self.__class__.__name__)
 
     @abstractmethod

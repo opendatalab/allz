@@ -1,20 +1,11 @@
 import importlib
 import os
 
-import allz.libs.common as common
 from allz.defs import UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING
-# from allz.libs.argparser import arg_parser
 from allz.libs.common import get_logger
 from allz.libs.unarchive_tester import ArchiveTypeTester
 
-# import click
 
-
-# from loguru import logger
-
-
-# @click.command()
-# @click.option('--config-path', default="./uncompress_type.ini", help='配置文件路径')
 def Unarchive(src_path, dest_path):
     base_package_path = "allz.unarchive."
 

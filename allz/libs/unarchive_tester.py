@@ -2,7 +2,6 @@ import os
 import re
 
 from allz.defs import UNARCHIVE_FILE_TYPES
-# from allz.libs.argparser import ArgParser
 
 
 class ArchiveTypeTester():
@@ -61,16 +60,3 @@ class ArchiveTypeTester():
                     similar_archive_list.append(file)
 
         return similar_archive_list
-
-
-if __name__ == "__main__":
-    test = ArchiveTypeTester()
-    file_name = "abc.tar.zip"
-    # res = test.is_archive(file_name)
-    # print(res)
-
-    # 测试压缩文件类型
-    res = test.is_support_archive_type(file_name)
-    print(res)
-
-    # print(test.archive_file_type)
