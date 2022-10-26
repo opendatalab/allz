@@ -16,7 +16,6 @@ from allz.libs.unarchive_tester import ArchiveTypeTester
 # @click.command()
 # @click.option('--config-path', default="./uncompress_type.ini", help='配置文件路径')
 def Unarchive(src_path, dest_path):
-    common.get_logger("Unarchive").info("准备开始解压...")
     base_package_path = "allz.unarchive."
 
     # 1.判断压缩类型
