@@ -1,10 +1,9 @@
-import os
 import subprocess
 import time
 from abc import ABC, abstractmethod
+from pathlib import Path
 
 import allz.libs.common as common
-from allz.defs import UNARCHIVE_TYPE_COMMAND
 from allz.libs.argparser import arg_parser
 
 
@@ -27,14 +26,9 @@ class AbstractUnarchive(ABC):
             cmd = f"unar -q -D -o {dest_path} {src_path}".split()
 
             # dest_path不存在，则新建目录
-            if not os.path.exists(dest_path):
-                mkdir_cmd = f"mkdir -p {dest_path}".split()
-                mk_res = subprocess.run(mkdir_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                if mk_res.returncode != 0:
-                    self.log.exception(mk_res.stderr.decode('utf-8'))
-
-                mk_res.check_returncode()
-                self.log.info("创建目录成功, " + ' '.join(mkdir_cmd))
+            if not Path.exists(Path(dest_path)):
+                Path(dest_path).mkdir(parents=True)
+                self.log.info(f"创建目录成功, {dest_path}")
 
             handle_cmd = self.handle(src_path, dest_path)
             if handle_cmd:
