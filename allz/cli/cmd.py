@@ -6,7 +6,7 @@ import click
 from allz.unarchive.unarchive_main import Unarchive
 
 
-@click.command(context_settings=dict(ignore_unknown_options=True, ))
+@click.command(context_settings=dict(ignore_unknown_options=True, help_option_names=("-h", "--help")))
 @click.option('-output-directory', '-o', default="./", help="The directory to write the contents of the archive to. Defaults to the current directory.", required=False)
 @click.argument('unkown_args', nargs=-1, type=click.UNPROCESSED)
 def cli(output_directory, unkown_args):
