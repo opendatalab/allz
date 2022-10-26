@@ -10,6 +10,7 @@ def get_logger(name: str):
     logger.add(sys.stdout, format=LOG_STDOUT_FORMAT, level=LOG_LEVEL, filter=lambda record: record["extra"].get('name') == name)
     logger.add(f"logs/{name}.log", format=LOG_FORMAT, rotation="1 day", filter=lambda record: record["extra"].get('name') == name)
     mylogger = logger.bind(name=name)
+
     return mylogger
 
 

@@ -2,10 +2,10 @@ import os
 import re
 
 from allz.defs import UNARCHIVE_FILE_TYPES
-from allz.libs.argparser import ArgParser
+# from allz.libs.argparser import ArgParser
 
 
-class ArchiveTypeTester(ArgParser):
+class ArchiveTypeTester():
     """
     压缩文件判断器
     """

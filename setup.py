@@ -25,6 +25,6 @@ setuptools.setup(
     python_requires='>=3.7',
     keywords='python, compress, decompress, archive',
     entry_points={'console_scripts': [
-        'allz = allz.cli.cmd:main',
+        'allz = allz.cli.cmd:cli',
     ]},
 )
