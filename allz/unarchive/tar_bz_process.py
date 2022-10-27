@@ -9,3 +9,8 @@ class TarBzProcess(AbstractUnarchive):
         cmd = f"tar xjf {src_path} -C {dest_path}".split()
 
         return cmd if cmd else None
+
+    def decompress_test(self):
+        cmd = "tar --help"
+
+        return cmd if cmd else None

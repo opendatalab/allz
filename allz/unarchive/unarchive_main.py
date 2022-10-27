@@ -32,6 +32,10 @@ def Unarchive(src_path, dest_path):
         unar_instance.main(src_path, dest_path)
 
 
+def decompress_cmd_test():
+    pass
+
+
 if __name__ == '__main__':
     mylogger = get_logger("main")
     # 0. 接收arg_parser输入参数

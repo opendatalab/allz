@@ -7,7 +7,7 @@ import allz.libs.common as common
 
 
 class AbstractUnarchive(ABC):
-    def __init__(self, thread_cnt=4):
+    def __init__(self):
         super().__init__()
         self.log = common.get_logger(self.__class__.__name__)
 
@@ -47,6 +47,27 @@ class AbstractUnarchive(ABC):
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
         self.log.info(f"压缩包 {src_path} 处理成功, 处理时长: {elapsed} 秒")
         self.succeed(src_path, dest_path)
+
+    @abstractmethod
+    def decompress_test(self):
+        pass
+    
+    def _decompress_test(self, cmd):
+        decompress_cmd = self.decompress_test()
+        if not decompress_cmd:
+            return False
+
+        try:
+            decompress_res = subprocess.run(decompress_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if decompress_res.returncode != 0:
+                self.log.exception(decompress_res.stderr.decode('utf-8'))
+
+            decompress_res.check_returncode()
+        except Exception as e:
+            self.log.exception(e)
+            return False
+        
+        return True
 
     def failed(self, src_path, dest_path):
         common.on_failure(src_path, dest_path)
