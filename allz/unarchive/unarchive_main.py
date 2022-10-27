@@ -48,9 +48,9 @@ def decompress_cmd_test():
         res = unar_instance._decompress_test()
         
         if res:
-            can_process_type.append(cmd_value)
+            can_process_type.extend(UNARCHIVE_TYPE_KEY_MAPPING[cmd_key])
         else:
-            cannot_process_type.append(cmd_value)
+            cannot_process_type.extend(UNARCHIVE_TYPE_KEY_MAPPING[cmd_key])
 
     return can_process_type, cannot_process_type
             
@@ -67,22 +67,27 @@ if __name__ == '__main__':
     # main(src_path, dest_path)
 
     # 2.完整压缩包测试
-    dest_path_lst = []
-    dest_file_name = 'jumpcutter.py'
-    archive_dir = "/mnt/unarchive_dataset_tmp/A3D/compress"
-    for archive_file in os.listdir(archive_dir):
-        is_file = os.path.isfile(archive_dir + os.sep + archive_file)
-        if is_file:
-            src_path = "/".join([archive_dir, archive_file])
-            dest_path = "/".join([archive_dir, archive_file + "#"])
-            dest_path_lst.append(dest_path)
-            # print(archive_file, src_path, dest_path)
-            Unarchive(src_path, dest_path)
+    # dest_path_lst = []
+    # dest_file_name = 'jumpcutter.py'
+    # archive_dir = "/mnt/unarchive_dataset_tmp/A3D/compress"
+    # for archive_file in os.listdir(archive_dir):
+    #     is_file = os.path.isfile(archive_dir + os.sep + archive_file)
+    #     if is_file:
+    #         src_path = "/".join([archive_dir, archive_file])
+    #         dest_path = "/".join([archive_dir, archive_file + "#"])
+    #         dest_path_lst.append(dest_path)
+    #         # print(archive_file, src_path, dest_path)
+    #         Unarchive(src_path, dest_path)
 
     # 2.1 测试压缩包是否解压成功
-    for dest_path in dest_path_lst:
-        if os.path.exists(dest_path):
-            if not os.path.exists(dest_path + "/jumpcutter-master/" + dest_file_name):
-                print(str(dest_path) + f"路径下, 解压文件 {dest_file_name} 不存在")
-        else:
-            print(str(dest_path) + ", 路径不存在")
+    # for dest_path in dest_path_lst:
+    #     if os.path.exists(dest_path):
+    #         if not os.path.exists(dest_path + "/jumpcutter-master/" + dest_file_name):
+    #             print(str(dest_path) + f"路径下, 解压文件 {dest_file_name} 不存在")
+    #     else:
+    #         print(str(dest_path) + ", 路径不存在")
+
+    # 3.压缩类型test
+    can, cannot = decompress_cmd_test()
+    print(can)
+    print(cannot)

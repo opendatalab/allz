@@ -58,7 +58,7 @@ class AbstractUnarchive(ABC):
             return False
 
         try:
-            decompress_res = subprocess.run(decompress_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            decompress_res = subprocess.run(decompress_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             if decompress_res.returncode != 0:
                 self.log.exception(decompress_res.stderr.decode('utf-8'))
 

@@ -11,6 +11,6 @@ class UnarProcess(AbstractUnarchive):
         return cmd if cmd else None
     
     def decompress_test(self):
-        cmd = "unar --help".split()
+        cmd = "unar --help"
         
         return cmd if cmd else None

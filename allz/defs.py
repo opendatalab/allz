@@ -2,7 +2,8 @@
 # 自定义的解压类型与key的mapping映射, key为unarchive目录下的脚本名称,key与下面UNARCHIVE_TYPE_COMMAND中的key保持一致
 UNARCHIVE_TYPE_KEY_MAPPING = {
     "zip_process": [".zip"],
-    "tar_bz_process": [".tar.bz", ".tar.bz2"]
+    "tar_bz_process": [".tar.bz", ".tar.bz2"],
+    "unar_process": [".tar", ".tar.bz", ".tar.bz2"]
 }
 
 

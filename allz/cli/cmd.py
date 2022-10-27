@@ -40,8 +40,8 @@ def unarchive(output_directory, unkown_args):
 @click.option('-test', is_flag=True, expose_value=False, is_eager=True, help="Test the decompressed file types supported by the current environment. ", required=False)
 def test():
     can, cannot = decompress_cmd_test()
-    click.echo("The current environment supports the following decompression type: " + ",".join(can))
-    click.echo("The decompression types that are not supported by the current environment are: " + ",".join(cannot))
+    click.echo("The decompression types that are supported are: " + str(",".join(can)))
+    click.echo("The decompression types that are not supported are: " + str(",".join(cannot)))
 
 
 cli.add_command(unarchive)
