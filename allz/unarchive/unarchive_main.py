@@ -52,7 +52,7 @@ def decompress_cmd_test():
         else:
             cannot_process_type.extend(UNARCHIVE_TYPE_KEY_MAPPING[cmd_key])
 
-    return can_process_type, cannot_process_type
+    return list(set(can_process_type)), list(set(cannot_process_type))
             
 
 if __name__ == '__main__':
