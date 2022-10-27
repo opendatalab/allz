@@ -20,9 +20,9 @@ def get_logger(name: str, log_mode=LOG_MODE):
 
 def on_success(src_path: str, des_path: str, log_mode=LOG_MODE) -> None:
     mylogger = get_logger("common", log_mode)
-    mylogger.info(f"压缩包{src_path} 解压到 {des_path} 处理成功")
+    mylogger.info(f"The compressed file {src_path} was successfully extracted to {des_path}.")
 
 
 def on_failure(src_path: str, des_path: str, log_mode=LOG_MODE) -> None:
     mylogger = get_logger("common", log_mode)
-    mylogger.info(f"压缩包{src_path} 解压到 {des_path} 处理失败")
+    mylogger.info(f"The compressed file {src_path} failed to be extracted to {des_path}.")

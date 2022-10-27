@@ -38,17 +38,17 @@ class AbstractUnarchive(ABC):
                 self.log.exception(unar_res.stderr.decode('utf-8'))
 
             unar_res.check_returncode()
-            self.log.info("解压命令: " + ' '.join(cmd))
+            self.log.info("The decompress command is: " + ' '.join(cmd))
             
         except Exception as e:
             elapsed = int((time.time() - start_time) * 1000) / 1000.0
-            self.log.error(f"压缩包 {src_path} 处理出错: {e}, 处理时长: {elapsed} 秒")
+            self.log.error(f"The compressed file {src_path} was processed with an error: {e}, elapsed time: {elapsed} 秒")
             self.log.exception(e)
             self.failed(src_path, dest_path, log_mode)
             return
 
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
-        self.log.info(f"压缩包 {src_path} 处理成功, 处理时长: {elapsed} 秒")
+        self.log.info(f"The compressed file {src_path} was processed successfully, elapsed time: {elapsed} 秒")
         self.succeed(src_path, dest_path, log_mode)
 
     @abstractmethod
