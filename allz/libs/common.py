@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import sys
 
-from allz.defs import LOG_FORMAT, LOG_LEVEL, LOG_STDOUT_FORMAT
+from allz.defs import LOG_LEVEL, LOG_STDOUT_FORMAT
 from loguru import logger
 
 

@@ -5,7 +5,6 @@ from allz.libs.abstract_unarchive import AbstractUnarchive
 class UnarProcess(AbstractUnarchive):
     def __init__(self):
         super().__init__()
-        self.log = common.get_logger("UnarProcess")
 
     def handle(self, src_path, dest_path):
         cmd = f"unar -q -D -o {dest_path} {src_path}".split()
