@@ -1,12 +1,11 @@
 import importlib
-import os
 
 from allz.defs import UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING
 from allz.libs.common import get_logger
 from allz.libs.unarchive_tester import ArchiveTypeTester
 
 
-def Unarchive(src_path, dest_path):
+def Unarchive(src_path, dest_path, log_mode):
     base_package_path = "allz.unarchive."
 
     # 1.判断压缩类型
@@ -29,7 +28,7 @@ def Unarchive(src_path, dest_path):
         unar_module = importlib.import_module(base_package_path + process_module)
         unar_class = getattr(unar_module, process_class)
         unar_instance = unar_class()
-        unar_instance.main(src_path, dest_path)
+        unar_instance.main(src_path, dest_path, log_mode)
 
 
 def decompress_cmd_test():

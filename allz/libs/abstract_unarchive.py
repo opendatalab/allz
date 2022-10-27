@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 import allz.libs.common as common
+from allz.defs import LOG_MODE
 
 
 class AbstractUnarchive(ABC):
@@ -15,16 +16,18 @@ class AbstractUnarchive(ABC):
     def handle(self, src_path, dest_path):
         pass
 
-    def _handle(self, src_path, dest_path):
+    def _handle(self, src_path, dest_path, log_mode):
         start_time = time.time()
-        self.log.info(f"开始处理压缩包: {src_path}")
+        if log_mode != LOG_MODE:
+            self.log = common.get_logger(self.__class__.__name__, log_mode=log_mode)
+
         try:
             cmd = f"unar -q -D -o {dest_path} {src_path}".split()
 
             # dest_path不存在，则新建目录
             if not Path.exists(Path(dest_path)):
                 Path(dest_path).mkdir(parents=True)
-                self.log.info(f"创建目录成功, {dest_path}")
+                # self.log.info(f"创建目录成功, {dest_path}")
 
             handle_cmd = self.handle(src_path, dest_path)
             if handle_cmd:
@@ -41,12 +44,12 @@ class AbstractUnarchive(ABC):
             elapsed = int((time.time() - start_time) * 1000) / 1000.0
             self.log.error(f"压缩包 {src_path} 处理出错: {e}, 处理时长: {elapsed} 秒")
             self.log.exception(e)
-            self.failed(src_path, dest_path)
+            self.failed(src_path, dest_path, log_mode)
             return
 
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
         self.log.info(f"压缩包 {src_path} 处理成功, 处理时长: {elapsed} 秒")
-        self.succeed(src_path, dest_path)
+        self.succeed(src_path, dest_path, log_mode)
 
     @abstractmethod
     def decompress_test(self):
@@ -69,11 +72,11 @@ class AbstractUnarchive(ABC):
         
         return True
 
-    def failed(self, src_path, dest_path):
-        common.on_failure(src_path, dest_path)
+    def failed(self, src_path, dest_path, log_mode=LOG_MODE):
+        common.on_failure(src_path, dest_path, log_mode)
 
-    def succeed(self, src_path, dest_path):
-        common.on_success(src_path, dest_path)
+    def succeed(self, src_path, dest_path, log_mode=LOG_MODE):
+        common.on_success(src_path, dest_path, log_mode)
 
-    def main(self, src_path, dest_path):
-        self._handle(src_path, dest_path)
+    def main(self, src_path, dest_path, log_mode=LOG_MODE):
+        self._handle(src_path, dest_path, log_mode)

@@ -29,5 +29,6 @@ UNARCHIVE_FILE_TYPES = ".tar .gz .tar.bz2 .tar.bz .zip .7z .tar.lz .tar.lzma .ta
 
 # 日志打印出来的格式
 LOG_LEVEL = 'INFO'
+LOG_MODE = 'normal'
 LOG_FORMAT = "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level}    | {file}:{function}:{line} - {message}"
 LOG_STDOUT_FORMAT = "<green>{time:YYYYMMDD HH:mm:ss}</green> | <level>{level}</level> | <cyan>{module}</cyan>.<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
