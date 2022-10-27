@@ -52,7 +52,7 @@ class AbstractUnarchive(ABC):
     def decompress_test(self):
         pass
     
-    def _decompress_test(self, cmd):
+    def _decompress_test(self):
         decompress_cmd = self.decompress_test()
         if not decompress_cmd:
             return False

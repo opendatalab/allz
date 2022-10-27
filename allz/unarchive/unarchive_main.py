@@ -33,8 +33,27 @@ def Unarchive(src_path, dest_path):
 
 
 def decompress_cmd_test():
-    pass
+    base_package_path = "allz.unarchive."
+    can_process_type = []
+    cannot_process_type = []
 
+    for cmd_key, cmd_value in UNARCHIVE_TYPE_COMMAND.items():
+        archive_type_cmd_key = UNARCHIVE_TYPE_COMMAND[cmd_key]
+        process_module = archive_type_cmd_key['process_module']
+        process_class = archive_type_cmd_key['process_class']
+
+        unar_module = importlib.import_module(base_package_path + process_module)
+        unar_class = getattr(unar_module, process_class)
+        unar_instance = unar_class()
+        res = unar_instance._decompress_test()
+        
+        if res:
+            can_process_type.append(cmd_value)
+        else:
+            cannot_process_type.append(cmd_value)
+
+    return can_process_type, cannot_process_type
+            
 
 if __name__ == '__main__':
     mylogger = get_logger("main")

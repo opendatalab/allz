@@ -1,17 +1,24 @@
 # -*- coding: UTF-8 -*-
 
+from functools import partial
 from pathlib import Path
 
 import click
-from allz.unarchive.unarchive_main import Unarchive
+from allz.__version__ import __version__
+from allz.unarchive.unarchive_main import Unarchive, decompress_cmd_test
 
 
-@click.command(context_settings=dict(ignore_unknown_options=True, help_option_names=("-h", "--help")))
+@click.group(context_settings={"help_option_names": ("-h", "--help"), "ignore_unknown_options": True})
+@click.version_option(__version__)
+# @click.pass_context
+def cli():
+    pass
+
+
+@click.command()
 @click.option('-output-directory', '-o', default="./", help="The directory to write the contents of the archive to. Defaults to the current directory.", required=False)
 @click.argument('unkown_args', nargs=-1, type=click.UNPROCESSED)
-def cli(output_directory, unkown_args):
-    """
-    """
+def unarchive(output_directory, unkown_args):
     src_path = ""
     current_dir = Path.cwd()
 
@@ -23,8 +30,23 @@ def cli(output_directory, unkown_args):
     if not Path.exists(Path(src_path)):
         if Path.exists(Path.joinpath(current_dir, src_path)):
             src_path = Path.joinpath(current_dir, src_path)
+            Unarchive(src_path, output_directory)
         else:
             click.echo("input archive file is not exists.")
             exit(1)
 
-    Unarchive(src_path, output_directory)
+
+@click.command()
+@click.option('-test', is_flag=True, expose_value=False, is_eager=True, help="Test the decompressed file types supported by the current environment. ", required=False)
+def test():
+    can, cannot = decompress_cmd_test()
+    click.echo("The current environment supports the following decompression type: " + ",".join(can))
+    click.echo("The decompression types that are not supported by the current environment are: " + ",".join(cannot))
+
+
+cli.add_command(unarchive)
+cli.add_command(test)
+
+
+if __name__ == "__main__":
+    cli()
