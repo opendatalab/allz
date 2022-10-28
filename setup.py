@@ -8,8 +8,7 @@ setuptools.setup(
     version="0.0.1",
     author="opendatalab",
     author_email="yoyoo10000@gmail.com",
-    description=
-    "A universal command line tool for compression and decompression",
+    description="A universal command line tool for compression and decompression",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/opendatalab/allz/",
