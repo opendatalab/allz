@@ -12,7 +12,7 @@ def cli():
 
 
 @cli.command("-d", help="To decompress file")
-@click.option('-output-directory', '-o', default="./", help="The directory to write the contents of the archive. Defaults to the current directory.", required=False)
+@click.option('--output-directory', '-o', default="./", help="The directory to write the contents of the archive. Defaults to the current directory.", required=False)
 @click.option("-q", is_flag=True, required=False)
 @click.argument('unkown_args', nargs=-1, type=click.UNPROCESSED)
 def decompress(output_directory, unkown_args, q):
@@ -27,7 +27,6 @@ def decompress(output_directory, unkown_args, q):
             src_path = arg
             break
 
-    click.echo(output_directory)
     Unarchive(src_path, output_directory, log_mode)
 
 
