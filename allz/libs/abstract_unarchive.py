@@ -24,10 +24,8 @@ class AbstractUnarchive(ABC):
         try:
             cmd = f"unar -q -D -o {dest_path} {src_path}".split()
 
-            # dest_path不存在，则新建目录
             if not Path.exists(Path(dest_path)):
                 Path(dest_path).mkdir(parents=True)
-                # self.log.info(f"创建目录成功, {dest_path}")
 
             handle_cmd = self.handle(src_path, dest_path)
             if handle_cmd:
