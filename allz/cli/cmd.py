@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import sys
+
 import click
 from allz.defs import LOG_MODE, __version__
 from allz.unarchive.unarchive_main import Unarchive, decompress_cmd_test
@@ -27,7 +29,8 @@ def decompress(output_directory, unkown_args, q):
             src_path = arg
             break
 
-    Unarchive(src_path, output_directory, log_mode)
+    stderr = Unarchive(src_path, output_directory, log_mode)
+    click.echo(stderr)
 
 
 @cli.command("check", help="Test which compressed files are supported")

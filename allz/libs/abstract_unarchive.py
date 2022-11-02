@@ -1,5 +1,4 @@
 import subprocess
-import sys
 import time
 from abc import ABC, abstractmethod
 from pathlib import Path
@@ -19,6 +18,8 @@ class AbstractUnarchive(ABC):
 
     def _handle(self, src_path, dest_path, log_mode):
         start_time = time.time()
+        stderr = ""
+
         if log_mode != LOG_MODE:
             self.log = common.get_logger(self.__class__.__name__, log_mode=log_mode)
 
@@ -35,6 +36,7 @@ class AbstractUnarchive(ABC):
             unar_res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             if unar_res.returncode != 0:
                 self.log.exception(unar_res.stderr.decode('utf-8'))
+                stderr = unar_res.stderr.decode("utf-8")
 
             unar_res.check_returncode()
             self.log.info("The decompress command is: " + ' '.join(cmd))
@@ -44,12 +46,13 @@ class AbstractUnarchive(ABC):
             self.log.error(f"The compressed file {src_path} was processed with an error: {e}, elapsed time: {elapsed} 秒")
             self.log.exception(e)
             self.failed(src_path, dest_path, log_mode)
-            sys.exit(-1)
+            return stderr
 
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
         self.log.info(f"The compressed file {src_path} was processed successfully, elapsed time: {elapsed} 秒")
         self.succeed(src_path, dest_path, log_mode)
-        sys.exit(0)
+
+        return stderr 
 
     @abstractmethod
     def decompress_test(self):
@@ -79,4 +82,4 @@ class AbstractUnarchive(ABC):
         common.on_success(src_path, dest_path, log_mode)
 
     def main(self, src_path, dest_path, log_mode=LOG_MODE):
-        self._handle(src_path, dest_path, log_mode)
+        return self._handle(src_path, dest_path, log_mode)
