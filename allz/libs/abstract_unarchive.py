@@ -1,4 +1,5 @@
 import subprocess
+import sys
 import time
 from abc import ABC, abstractmethod
 from pathlib import Path
@@ -43,11 +44,12 @@ class AbstractUnarchive(ABC):
             self.log.error(f"The compressed file {src_path} was processed with an error: {e}, elapsed time: {elapsed} 秒")
             self.log.exception(e)
             self.failed(src_path, dest_path, log_mode)
-            return
+            sys.exit(-1)
 
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
         self.log.info(f"The compressed file {src_path} was processed successfully, elapsed time: {elapsed} 秒")
         self.succeed(src_path, dest_path, log_mode)
+        sys.exit(0)
 
     @abstractmethod
     def decompress_test(self):
