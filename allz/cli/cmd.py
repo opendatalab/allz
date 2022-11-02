@@ -29,8 +29,12 @@ def decompress(output_directory, unkown_args, q):
             src_path = arg
             break
 
-    stderr = Unarchive(src_path, output_directory, log_mode)
+    res_status, stderr = Unarchive(src_path, output_directory, log_mode)
     click.echo(stderr)
+    if not res_status:
+        sys.exit(1)
+    else:
+        sys.exit(0)
 
 
 @cli.command("check", help="Test which compressed files are supported")

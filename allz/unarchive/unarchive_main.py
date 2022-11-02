@@ -30,9 +30,9 @@ def Unarchive(src_path, dest_path, log_mode=LOG_MODE):
     unar_module = importlib.import_module(base_package_path + process_module)
     unar_class = getattr(unar_module, process_class)
     unar_instance = unar_class()
-    stderr = unar_instance.main(src_path, dest_path, log_mode)
+    res_status, stderr = unar_instance.main(src_path, dest_path, log_mode)
 
-    return str(stderr).strip()
+    return res_status, str(stderr).strip()
         
 
 def decompress_cmd_test():
