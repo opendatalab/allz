@@ -3,8 +3,11 @@
 import sys
 
 import click
+import logging
 from allz.defs import LOG_MODE, __version__
 from allz.unarchive.unarchive_main import Unarchive, decompress_cmd_test
+
+stderr_handler = logging.StreamHandler(stream=sys.stderr)
 
 
 @click.group(context_settings={"help_option_names": ("-h", "--help"), "ignore_unknown_options": True})
@@ -30,7 +33,7 @@ def decompress(output_directory, unkown_args, q):
             break
 
     res_status, stderr = Unarchive(src_path, output_directory, log_mode)
-    click.echo(stderr)
+    sys.stderr.write(stderr)
     if not res_status:
         sys.exit(1)
     else:

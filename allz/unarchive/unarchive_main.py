@@ -12,7 +12,7 @@ def Unarchive(src_path, dest_path, log_mode=LOG_MODE):
     archiveTester = ArchiveTypeTester()
     is_archive = archiveTester.is_archive(src_path)
     if not is_archive:
-        return "input compress file type test error"
+        return False, "input compress file type test error"
 
     res, archive_type = archiveTester.is_support_archive_type(src_path)
     # 2.遍历配置的压缩类型找到对应的解压命令
