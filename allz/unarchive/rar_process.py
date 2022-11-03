@@ -11,6 +11,6 @@ class RarProcess(AbstractUnarchive):
         return cmd if cmd else None
 
     def decompress_test(self):
-        cmd = "rar --help"
+        cmd = "rar"
 
         return cmd if cmd else None

@@ -1,17 +1,17 @@
 import importlib
 
-from allz.defs import (LOG_MODE, UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING)
+from allz.defs import (LOG_MODE_NORMAL, UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING)
 from allz.libs.unarchive_tester import ArchiveTypeTester
 
 
-def Unarchive(src_path, dest_path, log_mode=LOG_MODE):
+def Unarchive(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False):
     base_package_path = "allz.unarchive."
 
     # 1.判断压缩类型
     archiveTester = ArchiveTypeTester()
     is_archive = archiveTester.is_archive(src_path)
     if not is_archive:
-        return False, "input compress file type test error"
+        return False, "input compress file type test error, or compress type not supported", ""
 
     res, archive_type = archiveTester.is_support_archive_type(src_path)
     # 2.遍历配置的压缩类型找到对应的解压命令
@@ -29,9 +29,9 @@ def Unarchive(src_path, dest_path, log_mode=LOG_MODE):
     unar_module = importlib.import_module(base_package_path + process_module)
     unar_class = getattr(unar_module, process_class)
     unar_instance = unar_class()
-    res_status, stderr = unar_instance.main(src_path, dest_path, log_mode)
+    res_status, stderr, stdout = unar_instance.main(src_path, dest_path, log_mode, is_cli)
 
-    return res_status, str(stderr).strip()
+    return res_status, stderr, stdout
         
 
 def decompress_cmd_test():
