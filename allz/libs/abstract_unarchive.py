@@ -44,8 +44,6 @@ class AbstractUnarchive(ABC):
                 stderr = unar_res.stderr
 
             unar_res.check_returncode()
-            self.log.info("The decompress command is: " + ' '.join(cmd))
-            
         except Exception as e:
             elapsed = int((time.time() - start_time) * 1000) / 1000.0
             self.log.error(f"The compressed file {src_path} was processed with an error: {e}, elapsed time: {elapsed} 秒")
@@ -54,8 +52,10 @@ class AbstractUnarchive(ABC):
             res_status = False
             return res_status, stderr, stdout
 
+        stdout += "The decompress command is: " + ' '.join(cmd) + "\n"
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
-        self.log.info(f"The compressed file {src_path} was processed successfully, elapsed time: {elapsed} 秒")
+        stdout += f"The compressed file {src_path} was processed successfully, elapsed time: {elapsed} 秒" + "\n"
+
         self.succeed(src_path, dest_path, log_mode, is_cli)
 
         return res_status, stderr, stdout

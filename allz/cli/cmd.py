@@ -5,7 +5,7 @@ import sys
 
 import click
 
-from allz.defs import LOG_MODE_QUIET, __version__
+from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET, __version__
 from allz.unarchive.unarchive_main import Unarchive, decompress_cmd_test
 
 stderr_handler = logging.StreamHandler(stream=sys.stderr)
@@ -23,14 +23,18 @@ def cli():
 @click.argument('unkown_args', nargs=-1, type=click.UNPROCESSED)
 def decompress(output_directory, unkown_args, q):
     src_path = ""
+    log_mode = LOG_MODE_NORMAL
+    if q:
+        log_mode = LOG_MODE_QUIET
 
     for arg in unkown_args:
         if not arg.startswith(("-", "--")):
             src_path = arg
             break
 
-    res_status, stderr, stdout = Unarchive(src_path, output_directory, log_mode=LOG_MODE_QUIET, is_cli=True)
+    res_status, stderr, stdout = Unarchive(src_path, output_directory, log_mode=log_mode, is_cli=True)
     sys.stderr.write(stderr)
+    
     if not q:
         sys.stderr.write(stdout)
 
