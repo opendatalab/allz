@@ -21,7 +21,6 @@ CURRENT_DIR = pathlib.Path(__file__).resolve().parent
 #     process.main(src_path, dest_path)
 #     assert Path.exists(dest_path) is True
 
-
 def test_all_compress_type():
     dest_path_lst = []
     dest_file_name = '000000000001.jpg'
