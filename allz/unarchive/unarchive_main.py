@@ -1,7 +1,7 @@
 import importlib
+import os
 
 from allz.defs import (LOG_MODE, UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING)
-from allz.libs.common import get_logger
 from allz.libs.unarchive_tester import ArchiveTypeTester
 
 
@@ -56,42 +56,3 @@ def decompress_cmd_test():
             cannot_process_type.extend(UNARCHIVE_TYPE_KEY_MAPPING[cmd_key])
 
     return list(set(can_process_type)), list(set(cannot_process_type))
-            
-
-if __name__ == '__main__':
-    mylogger = get_logger("main")
-    # 0. 接收arg_parser输入参数
-    # args = arg_parser()
-    # main(args.src_path, args.dest_path)
-
-    # 1.本地测试
-    src_path = "/mnt/unarchive_dataset_tmp/A3D/compress/temp/jumpcutter-master.tar.bz"
-    dest_path = "/mnt/unarchive_dataset_tmp/A3D/compress/temp/jumpcutter-master.tar.bz#"
-    status = Unarchive(src_path, dest_path)
-    print(status)
-
-    # 2.完整压缩包测试
-    # dest_path_lst = []
-    # dest_file_name = 'jumpcutter.py'
-    # archive_dir = "/mnt/unarchive_dataset_tmp/A3D/compress"
-    # for archive_file in os.listdir(archive_dir):
-    #     is_file = os.path.isfile(archive_dir + os.sep + archive_file)
-    #     if is_file:
-    #         src_path = "/".join([archive_dir, archive_file])
-    #         dest_path = "/".join([archive_dir, archive_file + "#"])
-    #         dest_path_lst.append(dest_path)
-    #         # print(archive_file, src_path, dest_path)
-    #         Unarchive(src_path, dest_path)
-
-    # # 2.1 测试压缩包是否解压成功
-    # for dest_path in dest_path_lst:
-    #     if os.path.exists(dest_path):
-    #         if not os.path.exists(dest_path + "/jumpcutter-master/" + dest_file_name):
-    #             print(str(dest_path) + f"路径下, 解压文件 {dest_file_name} 不存在")
-    #     else:
-    #         print(str(dest_path) + ", 路径不存在")
-
-    # 3.压缩类型test
-    # can, cannot = decompress_cmd_test()
-    # print(can)
-    # print(cannot)
