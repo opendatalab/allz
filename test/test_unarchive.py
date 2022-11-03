@@ -10,16 +10,16 @@ from allz.unarchive.tar_bz_process import TarBzProcess
 CURRENT_DIR = pathlib.Path(__file__).resolve().parent
 
 
-def test_tar_bz_process():
-    """test unarchive command"""
-    print(CURRENT_DIR)
-    src_path = Path.joinpath(CURRENT_DIR, "data/source/MNIST.tar.bz")
-    dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
-    print(src_path, dest_path)
+# def test_tar_bz_process():
+#     """test unarchive command"""
+#     print(CURRENT_DIR)
+#     src_path = Path.joinpath(CURRENT_DIR, "data/source/MNIST.tar.bz")
+#     dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
+#     print(src_path, dest_path)
 
-    process = TarBzProcess()
-    process.main(src_path, dest_path)
-    assert Path.exists(dest_path) is True
+#     process = TarBzProcess()
+#     process.main(src_path, dest_path)
+#     assert Path.exists(dest_path) is True
 
 
 def test_all_compress_type():

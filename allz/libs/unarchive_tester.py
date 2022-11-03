@@ -10,7 +10,7 @@ class ArchiveTypeTester():
     """
     def __init__(self):
         super().__init__()
-        self.archive_file_type = str(UNARCHIVE_FILE_TYPES).split()
+        self.archive_file_type = UNARCHIVE_FILE_TYPES
         self._init_ext_regex()
         self.split_volume_archive = "\\d{2,3}$"
 
