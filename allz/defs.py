@@ -3,7 +3,7 @@
 UNARCHIVE_TYPE_KEY_MAPPING = {
     "zip_process": [".zip"],
     "tar_bz_process": [".tar.bz", ".tar.bz2"],
-    "unar_process": [".7z", ".tar", ".tar.bz2", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"],
+    "unar_process": [".7z", ".tar", ".tar.bz2", ".tar.gz", ".tar.lzma", ".tar.xz", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"],
     "rar_process": [".rar"]
 }
 
