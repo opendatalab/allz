@@ -36,7 +36,11 @@ def test_all_compress_type():
 
     for dest_path in dest_path_lst:
         assert os.path.exists(dest_path) is True
-        assert os.path.exists(dest_path + "/MNIST/media/" + dest_file_name) is True
+        type_suffix = ".".join(dest_path.split(".")[1:])
+        if type_suffix in ["jpg.bz2#", "jpg.gz#", "jpg.lzma#", "jpg.xz#"]:
+            assert os.path.exists(dest_path + os.sep + dest_file_name) is True
+        else:
+            assert os.path.exists(dest_path + "/MNIST/media/" + dest_file_name) is True
 
 
 if __name__ == '__main__':

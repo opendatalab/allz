@@ -3,7 +3,8 @@
 UNARCHIVE_TYPE_KEY_MAPPING = {
     "zip_process": [".zip"],
     "tar_bz_process": [".tar.bz", ".tar.bz2"],
-    "unar_process": [".tar", ".tar.bz", ".tar.bz2"]
+    "unar_process": [".tar", ".tar.bz", ".tar.bz2"],
+    "rar_process": [".rar"]
 }
 
 
@@ -22,6 +23,11 @@ UNARCHIVE_TYPE_COMMAND = {
     "unar_process": {
         "process_module": "unar_process",
         "process_class": "UnarProcess"
+    },
+
+    "rar_process": {
+        "process_module": "rar_process",
+        "process_class": "RarProcess"
     }
 }
 
