@@ -1,5 +1,4 @@
 import importlib
-import os
 
 from allz.defs import (LOG_MODE, UNARCHIVE_TYPE_COMMAND, UNARCHIVE_TYPE_KEY_MAPPING)
 from allz.libs.unarchive_tester import ArchiveTypeTester

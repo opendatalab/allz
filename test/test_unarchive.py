@@ -5,7 +5,7 @@ import pathlib
 from pathlib import Path
 
 from allz.unarchive import Unarchive
-from allz.unarchive.tar_bz_process import TarBzProcess
+# from allz.unarchive.tar_bz_process import TarBzProcess
 
 CURRENT_DIR = pathlib.Path(__file__).resolve().parent
 
