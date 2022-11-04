@@ -1,7 +1,7 @@
-from allz.libs.abstract_unarchive import AbstractUnarchive
+from allz.libs.abstract_decompress import AbstractDecompress
 
 
-class RarProcess(AbstractUnarchive):
+class RarProcess(AbstractDecompress):
     def __init__(self):
         super().__init__()
 

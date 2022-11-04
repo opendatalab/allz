@@ -7,7 +7,7 @@ import allz.libs.common as common
 from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET
 
 
-class AbstractUnarchive(ABC):
+class AbstractDecompress(ABC):
     def __init__(self):
         super().__init__()
         self.log = common.get_logger(self.__class__.__name__)

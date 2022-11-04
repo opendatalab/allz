@@ -6,7 +6,7 @@ import sys
 import click
 
 from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET, __version__
-from allz.unarchive.unarchive_main import Unarchive, decompress_cmd_test
+from allz.decompress.decompress_main import Decompress, decompress_cmd_test
 
 stderr_handler = logging.StreamHandler(stream=sys.stderr)
 
@@ -32,7 +32,7 @@ def decompress(output_directory, unkown_args, q):
             src_path = arg
             break
 
-    res_status, stderr, stdout = Unarchive(src_path, output_directory, log_mode=log_mode, is_cli=True)
+    res_status, stderr, stdout = Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True)
     sys.stderr.write(stderr)
     
     if not q:

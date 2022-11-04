@@ -1,6 +1,6 @@
 
 # 自定义的解压类型与key的mapping映射, key为unarchive目录下的脚本名称,key与下面UNARCHIVE_TYPE_COMMAND中的key保持一致
-UNARCHIVE_TYPE_KEY_MAPPING = {
+COMPRESS_TYPE_KEY_MAPPING = {
     "zip_process": [".zip"],
     "tar_bz_process": [".tar.bz", ".tar.bz2"],
     "unar_process": [".7z", ".tar", ".tar.bz2", ".tar.gz", ".tar.lzma", ".tar.xz", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"],
@@ -9,7 +9,7 @@ UNARCHIVE_TYPE_KEY_MAPPING = {
 
 
 # 解压类型与解压命令、python处理脚本的module/class字典配置
-UNARCHIVE_TYPE_COMMAND = {
+COMPRESS_TYPE_COMMAND = {
     "zip_process": {
         "process_module": "zip_process",
         "process_class": "ZipProcess"
@@ -31,7 +31,7 @@ UNARCHIVE_TYPE_COMMAND = {
     }
 }
 
-UNARCHIVE_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"]
+COMPRESS_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"]
 
 # 日志打印出来的格式
 LOG_LEVEL = 'INFO'

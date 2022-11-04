@@ -4,7 +4,7 @@ import os
 import pathlib
 from pathlib import Path
 
-from allz.unarchive import Unarchive
+from allz.decompress import Decompress
 # from allz.unarchive.tar_bz_process import TarBzProcess
 
 CURRENT_DIR = pathlib.Path(__file__).resolve().parent
@@ -32,7 +32,7 @@ def test_all_compress_type():
             src_path = "/".join([str(archive_dir), archive_file])
             dest_path = "/".join([str(dest_dir), archive_file + "#"])
             dest_path_lst.append(dest_path)
-            Unarchive(src_path, dest_path)
+            Decompress(src_path, dest_path)
 
     for dest_path in dest_path_lst:
         assert os.path.exists(dest_path) is True

@@ -1,16 +1,16 @@
 import os
 import re
 
-from allz.defs import UNARCHIVE_FILE_TYPES
+from allz.defs import COMPRESS_FILE_TYPES
 
 
-class ArchiveTypeTester():
+class FileTypeTester():
     """
     压缩文件判断器
     """
     def __init__(self):
         super().__init__()
-        self.archive_file_type = UNARCHIVE_FILE_TYPES
+        self.archive_file_type = COMPRESS_FILE_TYPES
         self._init_ext_regex()
         self.split_volume_archive = "\\d{2,3}$"
 
