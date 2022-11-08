@@ -7,21 +7,22 @@ from pathlib import Path
 from allz.decompress import Decompress
 from allz.decompress.bz2_split_process import Bz2SplitProcess
 from allz.libs.file_type_tester import FileTypeTester
-# from allz.unarchive.tar_bz_process import TarBzProcess
+from allz.decompress.zip_process import ZipProcess
 
 CURRENT_DIR = pathlib.Path(__file__).resolve().parent
 
 
-# def test_tar_bz_process():
-#     """test unarchive command"""
-#     print(CURRENT_DIR)
-#     src_path = Path.joinpath(CURRENT_DIR, "data/source/MNIST.tar.bz")
-#     dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
-#     print(src_path, dest_path)
+def test_zip_process():
+    """test unarchive command"""
+    print(CURRENT_DIR)
+    src_path = Path.joinpath(CURRENT_DIR, "data/source/MNIST.zip")
+    dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
+    print(src_path, dest_path)
 
-#     process = TarBzProcess()
-#     process.main(src_path, dest_path)
-#     assert Path.exists(dest_path) is True
+    process = ZipProcess()
+    process.main(src_path, dest_path)
+    assert Path.exists(dest_path) is True
+
 
 def test_all_compress_type():
     dest_path_lst = []
@@ -62,6 +63,6 @@ def test_tar_bz_split_process():
 
 
 if __name__ == '__main__':
-    # test_tar_bz_process()
+    # test_zip_process()
     # test_all_compress_type()
     test_tar_bz_split_process()
