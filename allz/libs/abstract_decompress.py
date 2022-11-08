@@ -13,10 +13,10 @@ class AbstractDecompress(ABC):
         self.log = common.get_logger(self.__class__.__name__)
 
     @abstractmethod
-    def handle(self, src_path, dest_path):
+    def handle(self, src_path, dest_path, is_force_mode=False):
         pass
 
-    def _handle(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False):
+    def _handle(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False):
         start_time = time.time()
         res_status = True
         stdout = ""
@@ -31,7 +31,7 @@ class AbstractDecompress(ABC):
             if not Path.exists(Path(dest_path)):
                 Path(dest_path).mkdir(parents=True)
 
-            handle_cmd = self.handle(src_path, dest_path)
+            handle_cmd = self.handle(src_path, dest_path, is_force_mode)
             if handle_cmd:
                 cmd = handle_cmd
 
@@ -91,6 +91,6 @@ class AbstractDecompress(ABC):
             log_mode = LOG_MODE_QUIET
         common.on_success(src_path, dest_path, log_mode)
 
-    def main(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False):
-        res_status, stderr, stdout = self._handle(src_path, dest_path, log_mode, is_cli)
+    def main(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False):
+        res_status, stderr, stdout = self._handle(src_path, dest_path, log_mode, is_cli, is_force_mode)
         return res_status, stderr, stdout

@@ -5,8 +5,11 @@ class RarProcess(AbstractDecompress):
     def __init__(self):
         super().__init__()
 
-    def handle(self, src_path, dest_path):
-        cmd = f"rar x {src_path} {dest_path}".split()
+    def handle(self, src_path, dest_path, is_force_mode=False):
+        if is_force_mode:
+            cmd = f"rar x {src_path} {dest_path} -o+".split()
+        else:
+            cmd = f"rar x {src_path} {dest_path} -o-".split()
 
         return cmd if cmd else None
 

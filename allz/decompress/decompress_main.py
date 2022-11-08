@@ -4,7 +4,7 @@ from allz.defs import (LOG_MODE_NORMAL, COMPRESS_TYPE_COMMAND, COMPRESS_TYPE_KEY
 from allz.libs.file_type_tester import FileTypeTester
 
 
-def Decompress(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False):
+def Decompress(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False):
     base_package_path = "allz.decompress."
 
     # 1.判断压缩类型
@@ -29,7 +29,7 @@ def Decompress(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False):
     unar_module = importlib.import_module(base_package_path + process_module)
     unar_class = getattr(unar_module, process_class)
     unar_instance = unar_class()
-    res_status, stderr, stdout = unar_instance.main(src_path, dest_path, log_mode, is_cli)
+    res_status, stderr, stdout = unar_instance.main(src_path, dest_path, log_mode, is_cli, is_force_mode)
 
     return res_status, stderr, stdout
         
