@@ -14,3 +14,6 @@ class TarBzProcess(AbstractDecompress):
         cmd = "tar --help"
 
         return cmd if cmd else None
+
+    def split_decompress(self, split_fiels, dest_path):
+        pass

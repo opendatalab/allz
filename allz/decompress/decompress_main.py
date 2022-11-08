@@ -6,21 +6,24 @@ from allz.libs.file_type_tester import FileTypeTester
 
 def Decompress(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False):
     base_package_path = "allz.decompress."
+    archive_type_cmd_init = "unar_process"
+    archive_type = ""
 
     # 1.判断压缩类型
     fileTester = FileTypeTester()
-    is_archive = fileTester.is_archive(src_path)
-    if not is_archive:
-        return False, "input compress file type test error, or compress type not supported \n", ""
-
-    res, archive_type = fileTester.is_support_archive_type(src_path)
+    if fileTester.is_archive(src_path):
+        # return False, "input compress file type test error, or compress type not supported \n", ""
+        res, archive_type = fileTester.is_support_archive_type(src_path)
+    elif fileTester.is_split_volume_archive(src_path):
+        src_path = ".".join(str(src_path).split(".")[:-1])
+        res, archive_type = fileTester.is_support_archive_type(src_path)
+    
     # 2.遍历配置的压缩类型找到对应的解压命令
-    archive_type_cmd_init = "unar_process"
     for type_key, type_value in COMPRESS_TYPE_KEY_MAPPING.items():
         if archive_type in type_value:
             archive_type_cmd_init = type_key
             break
-    
+
     archive_type_cmd_key = COMPRESS_TYPE_COMMAND[archive_type_cmd_init]
     process_module = archive_type_cmd_key['process_module']
     process_class = archive_type_cmd_key['process_class']

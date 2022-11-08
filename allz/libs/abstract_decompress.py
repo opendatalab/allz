@@ -3,6 +3,8 @@ import time
 from abc import ABC, abstractmethod
 from pathlib import Path
 
+from allz.libs.file_type_tester import FileTypeTester
+
 import allz.libs.common as common
 from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET
 
@@ -11,6 +13,7 @@ class AbstractDecompress(ABC):
     def __init__(self):
         super().__init__()
         self.log = common.get_logger(self.__class__.__name__)
+        self.file_type_tester = FileTypeTester()
 
     @abstractmethod
     def handle(self, src_path, dest_path):
@@ -21,19 +24,24 @@ class AbstractDecompress(ABC):
         res_status = True
         stdout = ""
         stderr = ""
+        cmd = f"unar -q -D -o {dest_path} {src_path}".split()
+        handle_cmd = ""
 
         if log_mode == LOG_MODE_QUIET or is_cli:
             self.log = common.get_logger(self.__class__.__name__, log_mode=LOG_MODE_QUIET)
 
         try:
-            cmd = f"unar -q -D -o {dest_path} {src_path}".split()
+            if self.file_type_tester.is_archive(src_path):
+                handle_cmd = self.handle(src_path, dest_path)
+            elif self.file_type_tester.is_split_volume_archive(src_path)[0]:
+                split_files = self.file_type_tester.get_split_volume_archives(src_path)
+                handle_cmd = self.split_decompress(split_files, dest_path)
+
+            if handle_cmd:
+                cmd = handle_cmd
 
             if not Path.exists(Path(dest_path)):
                 Path(dest_path).mkdir(parents=True)
-
-            handle_cmd = self.handle(src_path, dest_path)
-            if handle_cmd:
-                cmd = handle_cmd
 
             unar_res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             stdout = unar_res.stdout
@@ -80,6 +88,10 @@ class AbstractDecompress(ABC):
             return False
         
         return True
+    
+    @abstractmethod
+    def split_decompress(self, split_fiels, dest_path):
+        pass
 
     def failed(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False):
         if is_cli:

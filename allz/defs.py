@@ -7,7 +7,6 @@ COMPRESS_TYPE_KEY_MAPPING = {
     "rar_process": [".rar"]
 }
 
-
 # 解压类型与解压命令、python处理脚本的module/class字典配置
 COMPRESS_TYPE_COMMAND = {
     "zip_process": {
@@ -28,6 +27,24 @@ COMPRESS_TYPE_COMMAND = {
     "rar_process": {
         "process_module": "rar_process",
         "process_class": "RarProcess"
+    }
+}
+
+# 分片解压类型与key定义
+SPLIT_COMPRESS_TYPE_KEY_MAPPING = {
+    "bz2_split_process": [".tar.bz2", ".tar.bz"],
+    "gz_split_process": [".tar.gz", ".tgz"]
+}
+
+SPLIT_COMPRESS_TYPE_COMMAND = {
+    "bz2_split_process": {
+        "process_module": "bz2_split_process",
+        "process_class": "Bz2SplitProcess"
+    },
+
+    "gz_split_process": {
+        "process_module": "gz_split_process",
+        "process_class": "GzSplitProcess"
     }
 }
 
