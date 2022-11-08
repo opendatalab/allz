@@ -55,10 +55,10 @@ def test_tar_bz_split_process():
     # dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
     print(src_path, dest_path)
 
-    file_tester = FileTypeTester()
-    split_files = file_tester.get_split_volume_archives(src_path)
+    # file_tester = FileTypeTester()
+    # split_files = file_tester.get_split_volume_archives(src_path)
     process = Bz2SplitProcess()
-    process.main(split_files, dest_path)
+    process.main(src_path, dest_path)
     assert Path.exists(Path(dest_path)) is True
 
 
