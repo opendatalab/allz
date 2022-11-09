@@ -6,7 +6,7 @@ class TarBzProcess(AbstractDecompress):
         super().__init__()
 
     def handle(self, src_path, dest_path):
-        cmd = f"tar xjf {src_path} -C {dest_path}".split()
+        cmd = f"tar xjf {src_path} -C {dest_path}"
 
         return cmd if cmd else None
 

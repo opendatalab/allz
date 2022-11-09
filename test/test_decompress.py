@@ -6,6 +6,7 @@ from pathlib import Path
 
 from allz.decompress import Decompress
 from allz.decompress.bz2_split_process import Bz2SplitProcess
+from allz.decompress.gz_split_process import GzSplitProcess
 from allz.libs.file_type_tester import FileTypeTester
 from allz.decompress.zip_process import ZipProcess
 
@@ -48,8 +49,7 @@ def test_all_compress_type():
 
 def test_tar_bz_split_process():
     """test unarchive command"""
-    print(CURRENT_DIR)
-    src_path = "/home/work/srccode/github/allz/test/data/split_src/MNIST.tar.bz.0000"
+    src_path = "/home/work/srccode/github/allz/test/data/split_src/MNIST.tar.gz.0000"
     dest_path = "/home/work/srccode/github/allz/test/data/split_dest"
     # src_path = Path.joinpath(CURRENT_DIR, "data/split_src/MNIST.tar.bz.0000")
     # dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
@@ -57,8 +57,8 @@ def test_tar_bz_split_process():
 
     # file_tester = FileTypeTester()
     # split_files = file_tester.get_split_volume_archives(src_path)
-    process = Bz2SplitProcess()
-    process.main(src_path, dest_path)
+    process = GzSplitProcess()
+    process.main(src_path, dest_path, is_split_file=True)
     assert Path.exists(Path(dest_path)) is True
 
 

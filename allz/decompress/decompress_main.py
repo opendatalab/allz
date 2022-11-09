@@ -9,6 +9,7 @@ def Decompress(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_f
     archive_type_cmd_init = "unar_process"
     archive_type = ""
     archive_type_cmd_key = {}
+    is_split_file = False
 
     # 1.判断压缩类型
     fileTester = FileTypeTester()
@@ -21,15 +22,16 @@ def Decompress(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_f
                 archive_type_cmd_init = type_key
                 break
         archive_type_cmd_key = COMPRESS_TYPE_COMMAND[archive_type_cmd_init]
-    elif fileTester.is_split_volume_archive(src_path):
-        src_path = ".".join(str(src_path).split(".")[:-1])
-        res, archive_type = fileTester.is_support_archive_type(src_path)
+    elif fileTester.is_split_volume_archive(src_path)[0]:
+        prefix_path = ".".join(str(src_path).split(".")[:-1])
+        res, archive_type = fileTester.is_support_archive_type(prefix_path)
         # 2-2.遍历配置的分片压缩类型找到对应的解压命令
         for type_key, type_value in SPLIT_COMPRESS_TYPE_KEY_MAPPING.items():
             if archive_type in type_value:
                 archive_type_cmd_init = type_key
                 break
         archive_type_cmd_key = SPLIT_COMPRESS_TYPE_COMMAND[archive_type_cmd_init]
+        is_split_file = True
     
     process_module = archive_type_cmd_key['process_module']
     process_class = archive_type_cmd_key['process_class']
@@ -38,7 +40,7 @@ def Decompress(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_f
     unar_module = importlib.import_module(base_package_path + process_module)
     unar_class = getattr(unar_module, process_class)
     unar_instance = unar_class()
-    res_status, stderr, stdout = unar_instance.main(src_path, dest_path, log_mode, is_cli, is_force_mode)
+    res_status, stderr, stdout = unar_instance.main(src_path, dest_path, log_mode, is_cli, is_force_mode, is_split_file)
 
     return res_status, stderr, stdout
         
@@ -64,3 +66,10 @@ def decompress_cmd_test():
             cannot_process_type.extend(COMPRESS_TYPE_KEY_MAPPING[cmd_key])
 
     return list(set(can_process_type)), list(set(cannot_process_type))
+
+
+if __name__ == '__main__':
+    src_path = "MNIST.tar.gz.0000"
+    # src_path = "/home/work/srccode/github/allz/test/data/split_src/MNIST.tar.gz.0000"
+    dest_path = "/home/work/srccode/github/allz/test/data/split_dest"
+    decom = Decompress(src_path, dest_path)

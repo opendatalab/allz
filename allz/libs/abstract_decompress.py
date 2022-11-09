@@ -19,35 +19,36 @@ class AbstractDecompress(ABC):
     def handle(self, src_path, dest_path, is_force_mode=False):
         pass
 
-    def _handle(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False):
+    def _handle(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False, is_split_file=False):
         start_time = time.time()
         res_status = True
         stdout = ""
         stderr = ""
-        cmd = f"unar -q -D -o {dest_path} {src_path}".split()
+        cmd = f"unar -q -D -o {dest_path} {src_path}"
         handle_cmd = ""
 
         if log_mode == LOG_MODE_QUIET or is_cli:
             self.log = common.get_logger(self.__class__.__name__, log_mode=LOG_MODE_QUIET)
 
         try:
-            if self.file_type_tester.is_archive(src_path):
-                handle_cmd = self.handle(src_path, dest_path)
-            elif self.file_type_tester.is_split_volume_archive(src_path)[0]:
+            res, groups = self.file_type_tester.is_split_volume_archive(src_path)
+
+            if not is_split_file:
+                handle_cmd = self.handle(src_path, dest_path, is_force_mode)
+            elif is_split_file:
                 split_files = self.file_type_tester.get_split_volume_archives(src_path)
                 handle_cmd = self.split_decompress(split_files, dest_path)
-
+            
             if not Path.exists(Path(dest_path)):
                 Path(dest_path).mkdir(parents=True)
 
-            handle_cmd = self.handle(src_path, dest_path, is_force_mode)
             if handle_cmd:
                 cmd = handle_cmd
 
             if not Path.exists(Path(dest_path)):
                 Path(dest_path).mkdir(parents=True)
 
-            unar_res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+            unar_res = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             stdout = unar_res.stdout
 
             if unar_res.returncode != 0:
@@ -64,7 +65,7 @@ class AbstractDecompress(ABC):
             res_status = False
             return res_status, stderr, stdout
 
-        stdout += "The decompress command is: " + ' '.join(cmd) + "\n"
+        stdout += f"The decompress command is: {cmd} \n"
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
         stdout += f"The compressed file {src_path} was processed successfully, elapsed time: {elapsed} 秒" + "\n"
 
@@ -107,6 +108,6 @@ class AbstractDecompress(ABC):
             log_mode = LOG_MODE_QUIET
         common.on_success(src_path, dest_path, log_mode)
 
-    def main(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False):
-        res_status, stderr, stdout = self._handle(src_path, dest_path, log_mode, is_cli, is_force_mode)
+    def main(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False, is_split_file=False):
+        res_status, stderr, stdout = self._handle(src_path, dest_path, log_mode, is_cli, is_force_mode, is_split_file)
         return res_status, stderr, stdout

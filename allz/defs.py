@@ -48,7 +48,7 @@ SPLIT_COMPRESS_TYPE_COMMAND = {
     }
 }
 
-COMPRESS_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"]
+COMPRESS_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.bz", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"]
 
 # 日志打印出来的格式
 LOG_LEVEL = 'INFO'

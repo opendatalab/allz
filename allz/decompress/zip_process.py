@@ -7,9 +7,9 @@ class ZipProcess(AbstractDecompress):
 
     def handle(self, src_path, dest_path, is_force_mode=False):
         if is_force_mode:
-            cmd = f"7z x {src_path} -o{dest_path} -aoa".split()
+            cmd = f"7z x {src_path} -o{dest_path} -aoa"
         else:
-            cmd = f"7z x {src_path} -o{dest_path} -aos".split()
+            cmd = f"7z x {src_path} -o{dest_path} -aos"
         
         return cmd if cmd else None
 
