@@ -34,8 +34,8 @@ class FileTypeTester():
     
     def _get_archive_type(self, file_path):
         path_splits = str(file_path).strip().split(".")
-        suffix_last_two = "." + path_splits[-1]
-        suffix_last_one = "." + ".".join(path_splits[-2: len(path_splits)])
+        suffix_last_one = "." + path_splits[-1]
+        suffix_last_two = "." + ".".join(path_splits[-2: len(path_splits)])
 
         return suffix_last_two, suffix_last_one
     
