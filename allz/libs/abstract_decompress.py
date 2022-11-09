@@ -31,8 +31,6 @@ class AbstractDecompress(ABC):
             self.log = common.get_logger(self.__class__.__name__, log_mode=LOG_MODE_QUIET)
 
         try:
-            res, groups = self.file_type_tester.is_split_volume_archive(src_path)
-
             if not is_split_file:
                 handle_cmd = self.handle(src_path, dest_path, is_force_mode)
             elif is_split_file:
