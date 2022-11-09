@@ -6,6 +6,8 @@ from allz.libs.file_type_tester import FileTypeTester
 
 def Decompress(src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False):
     base_package_path = "allz.decompress."
+    src_path = str(src_path).replace(" ", "\\ ")
+    dest_path = str(dest_path).replace(" ", "\\ ")
 
     # 1.判断压缩类型
     fileTester = FileTypeTester()

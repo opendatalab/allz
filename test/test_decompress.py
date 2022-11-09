@@ -45,5 +45,6 @@ def test_all_compress_type():
 
 
 if __name__ == '__main__':
-    test_zip_process()
-    # test_all_compress_type()
+    # test_zip_process()
+    test_all_compress_type()
+    

@@ -26,16 +26,16 @@ class AbstractDecompress(ABC):
             self.log = common.get_logger(self.__class__.__name__, log_mode=LOG_MODE_QUIET)
 
         try:
-            cmd = f"unar -q -D -o {dest_path} {src_path}".split()
+            cmd = f"unar -q -D -o {dest_path} {src_path}"
 
             if not Path.exists(Path(dest_path)):
-                Path(dest_path).mkdir(parents=True)
+                Path.mkdir(Path(str(dest_path).replace("\\ ", " ")), exist_ok=True)
 
             handle_cmd = self.handle(src_path, dest_path, is_force_mode)
             if handle_cmd:
                 cmd = handle_cmd
 
-            unar_res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+            unar_res = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             stdout = unar_res.stdout
 
             if unar_res.returncode != 0:
@@ -52,7 +52,7 @@ class AbstractDecompress(ABC):
             res_status = False
             return res_status, stderr, stdout
 
-        stdout += "The decompress command is: " + ' '.join(cmd) + "\n"
+        stdout += f"The decompress command is: {cmd} \n"
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
         stdout += f"The compressed file {src_path} was processed successfully, elapsed time: {elapsed} 秒" + "\n"
 
