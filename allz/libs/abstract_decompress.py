@@ -37,14 +37,13 @@ class AbstractDecompress(ABC):
                 split_files = self.file_type_tester.get_split_volume_archives(src_path)
                 handle_cmd = self.split_decompress(split_files, dest_path)
             
+            cmd = f"unar -q -D -o {dest_path} {src_path}"
+
             if not Path.exists(Path(dest_path)):
-                Path(dest_path).mkdir(parents=True)
+                Path.mkdir(Path(str(dest_path).replace("\\ ", " ")), exist_ok=True, parents=True)
 
             if handle_cmd:
                 cmd = handle_cmd
-
-            if not Path.exists(Path(dest_path)):
-                Path(dest_path).mkdir(parents=True)
 
             unar_res = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             stdout = unar_res.stdout
