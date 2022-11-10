@@ -29,7 +29,7 @@ class AbstractDecompress(ABC):
             cmd = f"unar -q -D -o {dest_path} {src_path}"
 
             if not Path.exists(Path(dest_path)):
-                Path.mkdir(Path(str(dest_path).replace("\\ ", " ")), exist_ok=True)
+                Path.mkdir(Path(str(dest_path).replace("\\ ", " ")), exist_ok=True, parents=True)
 
             handle_cmd = self.handle(src_path, dest_path, is_force_mode)
             if handle_cmd:
