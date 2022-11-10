@@ -33,7 +33,8 @@ COMPRESS_TYPE_COMMAND = {
 # 分片解压类型与key定义
 SPLIT_COMPRESS_TYPE_KEY_MAPPING = {
     "bz2_split_process": [".tar.bz2", ".tar.bz"],
-    "gz_split_process": [".tar.gz", ".tgz"]
+    "gz_split_process": [".tar.gz", ".tgz"],
+    "z7_split_process": [".tar.7z"]
 }
 
 SPLIT_COMPRESS_TYPE_COMMAND = {
@@ -45,10 +46,15 @@ SPLIT_COMPRESS_TYPE_COMMAND = {
     "gz_split_process": {
         "process_module": "gz_split_process",
         "process_class": "GzSplitProcess"
+    },
+
+    "z7_split_process": {
+        "process_module": "z7_split_process",
+        "process_class": "Z7SplitProcess"
     }
 }
 
-COMPRESS_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.bz", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"]
+COMPRESS_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.bz", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip", ".tar.7z"]
 
 # 日志打印出来的格式
 LOG_LEVEL = 'INFO'
