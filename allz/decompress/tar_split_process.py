@@ -5,11 +5,11 @@ class TarSplitProcess(AbstractDecompress):
     def __init__(self):
         super().__init__()
 
-    def split_decompress(self, split_files, dest_path):
+    def split_decompress(self, split_files, dest_path, is_force_mode=False):
         cmd = ""
         if len(split_files) > 0:
-            split_first_path = sorted(split_files)[0]
-            cmd = f"cat {split_first_path} | tar xf - -C {dest_path}"
+            split_files_lst = " ".join(sorted(split_files))
+            cmd = f"cat {split_files_lst} | tar xf - -C {dest_path}"
 
         return cmd if cmd else None
     

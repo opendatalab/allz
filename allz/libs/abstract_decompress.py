@@ -35,7 +35,7 @@ class AbstractDecompress(ABC):
                 handle_cmd = self.handle(src_path, dest_path, is_force_mode)
             elif is_split_file:
                 split_files = self.file_type_tester.get_split_volume_archives(src_path)
-                handle_cmd = self.split_decompress(split_files, dest_path)
+                handle_cmd = self.split_decompress(split_files, dest_path, is_force_mode)
             
             cmd = f"unar -q -D -o {dest_path} {src_path}"
 
@@ -92,7 +92,7 @@ class AbstractDecompress(ABC):
         return True
     
     @abstractmethod
-    def split_decompress(self, split_fiels, dest_path):
+    def split_decompress(self, split_fiels, dest_path, is_force_mode=False):
         pass
 
     def failed(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False):
