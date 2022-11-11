@@ -1,12 +1,13 @@
 # -*- coding: UTF-8 -*-
 
+import io
 import logging
 import sys
 
 import click
 
-from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET, __version__
 from allz.decompress.decompress_main import Decompress, decompress_cmd_test
+from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET, __version__
 
 stderr_handler = logging.StreamHandler(stream=sys.stderr)
 
@@ -21,8 +22,8 @@ def cli():
 @click.option('--output-directory', '-o', default="./", help="The directory to write the contents of the archive. Defaults to the current directory.", required=False)
 @click.option("-q", is_flag=True, required=False)
 @click.option("-f", is_flag=True, required=False)
-@click.argument('unkown_args', nargs=-1, type=click.UNPROCESSED)
-def decompress(output_directory, unkown_args, q, f):
+@click.argument("input", type=click.File("rb"), nargs=-1)
+def decompress(output_directory, input, q, f):
     src_path = ""
     log_mode = LOG_MODE_NORMAL
     force_mode = False
@@ -32,10 +33,8 @@ def decompress(output_directory, unkown_args, q, f):
     if f:
         force_mode = True
 
-    for arg in unkown_args:
-        if not arg.startswith(("-", "--")):
-            src_path = arg
-            break
+    if len(input) > 0:
+        src_path = io.BufferedReader(input[0]).name
 
     res_status, stderr, stdout = Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True, is_force_mode=force_mode)
     sys.stderr.write(stderr)
