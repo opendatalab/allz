@@ -7,13 +7,13 @@ import sys
 import click
 
 from allz.decompress.decompress_main import Decompress, decompress_cmd_test
-from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET, __version__
+from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET
 
 stderr_handler = logging.StreamHandler(stream=sys.stderr)
 
 
 @click.group(context_settings={"help_option_names": ("-h", "--help"), "ignore_unknown_options": True})
-@click.version_option(__version__)
+@click.version_option()
 def cli():
     pass
 
