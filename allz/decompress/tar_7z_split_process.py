@@ -3,7 +3,7 @@ import os
 from allz.libs.abstract_decompress import AbstractDecompress
 
 
-class Z7SplitProcess(AbstractDecompress):
+class Tar7zSplitProcess(AbstractDecompress):
     def __init__(self):
         super().__init__()
 

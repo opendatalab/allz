@@ -49,9 +49,9 @@ SPLIT_COMPRESS_TYPE_COMMAND = {
         "process_class": "GzSplitProcess"
     },
 
-    "z7_split_process": {
-        "process_module": "z7_split_process",
-        "process_class": "Z7SplitProcess"
+    "tar_7z_split_process": {
+        "process_module": "tar_7z_split_process",
+        "process_class": "Tar7zSplitProcess"
     },
 
     "tar_split_process": {
