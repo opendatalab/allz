@@ -34,7 +34,7 @@ COMPRESS_TYPE_COMMAND = {
 SPLIT_COMPRESS_TYPE_KEY_MAPPING = {
     "bz2_split_process": [".tar.bz2", ".tar.bz"],
     "gz_split_process": [".tar.gz", ".tgz"],
-    "z7_split_process": [".tar.7z"],
+    "tar_7z_split_process": [".tar.7z"],
     "tar_split_process": [".tar"]
 }
 
