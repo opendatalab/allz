@@ -35,7 +35,8 @@ SPLIT_COMPRESS_TYPE_KEY_MAPPING = {
     "bz2_split_process": [".tar.bz2", ".tar.bz"],
     "gz_split_process": [".tar.gz", ".tgz"],
     "tar_7z_split_process": [".tar.7z"],
-    "tar_split_process": [".tar"]
+    "tar_split_process": [".tar"],
+    "z7_split_process": [".7z"]
 }
 
 SPLIT_COMPRESS_TYPE_COMMAND = {
@@ -57,6 +58,11 @@ SPLIT_COMPRESS_TYPE_COMMAND = {
     "tar_split_process": {
         "process_module": "tar_split_process",
         "process_class": "TarSplitProcess"
+    },
+
+    "z7_split_process": {
+        "process_module": "z7_split_process",
+        "process_class": "Z7SplitProcess"
     }
 }
 
