@@ -1,15 +1,12 @@
 # -*- coding: UTF-8 -*-
 
 import io
-import logging
 import sys
 
 import click
 
-from allz.decompress.decompress_main import Decompress, decompress_cmd_test
+from allz.decompress.decompress_main import DecompressMain
 from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET
-
-stderr_handler = logging.StreamHandler(stream=sys.stderr)
 
 
 @click.group(context_settings={"help_option_names": ("-h", "--help"), "ignore_unknown_options": True})
@@ -36,21 +33,27 @@ def decompress(output_directory, input, q, f):
     if len(input) > 0:
         src_path = io.BufferedReader(input[0]).name
 
-    res_status, stderr, stdout = Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True, is_force_mode=force_mode)
-    sys.stderr.write(stderr)
+    try:
+        de_main = DecompressMain()
+        res_status, stderr, stdout = de_main.Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True, is_force_mode=force_mode)
+        sys.stderr.write(stderr)
     
-    if not q:
-        sys.stderr.write(stdout)
+        if not q:
+            sys.stderr.write(stdout)
 
-    if not res_status:
+        if not res_status:
+            sys.exit(1)
+        else:
+            sys.exit(0)
+    except Exception:
+        click.echo("allz decompress error, please check your command, you can wiew usage through the allz -d command")
         sys.exit(1)
-    else:
-        sys.exit(0)
 
 
 @cli.command("check", help="Test which compressed files are supported")
 def check_file_type():
-    can, cannot = decompress_cmd_test()
+    de_main = DecompressMain()
+    can, cannot = de_main.decompress_cmd_test(is_cli=True)
     click.echo("The decompression types that are supported are: " + str(", ".join(can)))
     click.echo("The decompression types that are not supported are: " + str(", ".join(cannot)))
 

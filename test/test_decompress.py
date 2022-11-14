@@ -4,8 +4,7 @@ import os
 import pathlib
 from pathlib import Path
 
-from allz.decompress import Decompress
-from allz.decompress.bz2_split_process import Bz2SplitProcess
+from allz.decompress.decompress_main import DecompressMain
 from allz.decompress.gz_split_process import GzSplitProcess
 from allz.decompress.zip_process import ZipProcess
 from allz.libs.file_type_tester import FileTypeTester
@@ -39,7 +38,8 @@ def test_all_normal_compress_type():
             src_path = "/".join([str(archive_dir), archive_file])
             dest_path = "/".join([str(dest_dir), archive_file + "#"])
             dest_path_lst.append(dest_path)
-            Decompress(src_path, dest_path)
+            de_main = DecompressMain()
+            de_main.Decompress(src_path, dest_path)
 
     for dest_path in dest_path_lst:
         assert os.path.exists(dest_path) is True

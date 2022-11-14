@@ -28,7 +28,7 @@ class AbstractDecompress(ABC):
         handle_cmd = ""
 
         if log_mode == LOG_MODE_QUIET or is_cli:
-            self.log = common.get_logger(self.__class__.__name__, log_mode=LOG_MODE_QUIET)
+            self.log = common.set_log_mode(self.__class__.__name__, log_mode=LOG_MODE_QUIET)
 
         try:
             if not is_split_file:
@@ -74,10 +74,13 @@ class AbstractDecompress(ABC):
     def decompress_test(self):
         pass
     
-    def _decompress_test(self):
+    def _decompress_test(self, is_cli=False):
         decompress_cmd = self.decompress_test()
         if not decompress_cmd:
             return False
+
+        if is_cli:
+            self.log = common.get_logger(self.__class__.__name__, log_mode=LOG_MODE_QUIET)
 
         try:
             decompress_res = subprocess.run(decompress_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

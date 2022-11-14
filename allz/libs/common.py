@@ -26,3 +26,7 @@ def on_success(src_path: str, des_path: str, log_mode=LOG_MODE_NORMAL) -> None:
 def on_failure(src_path: str, des_path: str, log_mode=LOG_MODE_NORMAL) -> None:
     mylogger = get_logger("common", log_mode)
     mylogger.info(f"The compressed file {src_path} failed to be extracted to {des_path}")
+
+
+def set_log_mode(class_name, log_mode=LOG_MODE_NORMAL):
+    return get_logger(class_name, log_mode)

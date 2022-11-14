@@ -1,3 +1,3 @@
-from allz.decompress.decompress_main import Decompress
+from allz.decompress.decompress_main import DecompressMain
 
-__all__ = ["Decompress"]
+__all__ = ["DecompressMain"]
