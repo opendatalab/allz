@@ -9,7 +9,10 @@ class Z7SplitProcess(AbstractDecompress):
         cmd = ""
         if len(split_files) > 0:
             split_first_path = sorted(split_files)[0]
-            cmd = f"7z x {split_first_path} -o{dest_path}"
+            if is_force_mode:
+                cmd = f"7z x {split_first_path} -o{dest_path} -aoa"
+            else:
+                cmd = f"7z x {split_first_path} -o{dest_path} -aos"
 
         return cmd if cmd else None
     

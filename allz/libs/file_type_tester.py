@@ -56,7 +56,7 @@ class FileTypeTester():
         is_archive, suffix_str = self.is_split_volume_archive(file_path)
         similar_archive_list = []
         if is_archive and suffix_str:
-            prefix_path = str(file_path).strip("/").split("/")[-1][:-len(suffix_str)]
+            prefix_path = str(file_path).rstrip("/").split("/")[-1][:-len(suffix_str)]
             current_dir = "/".join(str(file_path).split("/")[:-1])
             if "/" not in file_path:
                 current_dir = "./"

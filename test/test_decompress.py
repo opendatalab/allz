@@ -6,6 +6,7 @@ from pathlib import Path
 
 from allz.decompress.decompress_main import DecompressMain
 from allz.decompress.gz_split_process import GzSplitProcess
+from allz.decompress.tar_7z_split_process import Tar7zSplitProcess
 from allz.decompress.zip_process import ZipProcess
 from allz.libs.file_type_tester import FileTypeTester
 
@@ -23,7 +24,7 @@ def test_single_zip_process():
     assert Path.exists(dest_path) is True
 
 
-def test_all_normal_compress_type():
+def test_all_normal_compressed_files():
     """
     Normal decompress function test
     it will decompress all compressed files in directory data/source to data/dest
@@ -55,8 +56,8 @@ def test_absolute_path_split_process():
     Split single compressed file test
     src_path and dest_path use the absolute path
     """
-    src_path = "/home/work/srccode/github/allz/test/data/split_src/MNIST.tar.gz.0000"
-    dest_path = "/home/work/srccode/github/allz/test/data/split_dest/"
+    src_path = "/home/work/srccode/github/allz/test/data/split_src/MNIST.tar.7z.001"
+    dest_path = "/home/work/srccode/github/allz/test/data/split_dest"
     # src_path = Path.joinpath(CURRENT_DIR, "data/split_src/MNIST.tar.bz.0000")
     # dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
     print(src_path, dest_path)
@@ -65,7 +66,7 @@ def test_absolute_path_split_process():
     split_files = file_tester.get_split_volume_archives(src_path)
     assert len(split_files) == 2
 
-    process = GzSplitProcess()
+    process = Tar7zSplitProcess()
     process.main(src_path, dest_path, is_split_file=True)
     assert Path.exists(Path(dest_path + os.sep + "MNIST")) is True
 
@@ -89,8 +90,38 @@ def test_relative_path_split_process():
     assert Path.exists(Path(dest_path + os.sep + "MNIST")) is True
 
 
+def test_all_split_compressed_files():
+    """
+    Split decompress function test
+    it will decompress all split compressed files in directory data/split_src to data/split_dest
+    """
+    dest_path_lst = []
+    dest_file_name = '000000000001.jpg'
+    split_src_dir = Path.joinpath(CURRENT_DIR, "data/split_src")
+    split_dest_dir = Path.joinpath(CURRENT_DIR, "data/split_dest") 
+
+    for archive_file in os.listdir(split_src_dir):
+        is_file = os.path.isfile(Path.joinpath(split_src_dir, archive_file))
+        if is_file:
+            if ".tar.7z." in archive_file and not str(archive_file).endswith(".001"):
+                continue
+
+            src_path = "/".join([str(split_src_dir), archive_file])
+            dest_path = "/".join([str(split_dest_dir), archive_file + "#"])
+            dest_path_lst.append(dest_path)
+            de_main = DecompressMain()
+            de_main.Decompress(src_path, dest_path)
+            # de_main.Decompress(src_path, dest_path, is_force_mode=True)
+
+    for dest_path in dest_path_lst:
+        assert os.path.exists(dest_path) is True
+
+        assert os.path.exists(dest_path + "/MNIST/media/" + dest_file_name) is True
+
+
 if __name__ == '__main__':
     # test_single_zip_process()
-    # test_all_normal_compress_type()
+    # test_all_normal_compressed_files()
     # test_absolute_path_split_process()
-    test_relative_path_split_process()
+    # test_relative_path_split_process()
+    test_all_split_compressed_files()

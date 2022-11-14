@@ -9,7 +9,10 @@ class TarSplitProcess(AbstractDecompress):
         cmd = ""
         if len(split_files) > 0:
             split_files_lst = " ".join(sorted(split_files))
-            cmd = f"cat {split_files_lst} | tar xf - -C {dest_path}"
+            if is_force_mode:
+                cmd = f"cat {split_files_lst} | tar xf - -C {dest_path} --overwrite"
+            else:
+                cmd = f"cat {split_files_lst} | tar xf - -C {dest_path} --skip-old-files"
 
         return cmd if cmd else None
     
