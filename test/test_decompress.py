@@ -13,7 +13,7 @@ from allz.libs.file_type_tester import FileTypeTester
 CURRENT_DIR = pathlib.Path(__file__).resolve().parent
 
 
-def test_single_zip_process():
+def test_singel_file_normal_process():
     """Normal single compressed file test"""
     print(CURRENT_DIR)
     src_path = Path.joinpath(CURRENT_DIR, "data/source/MNIST.zip")
@@ -24,7 +24,20 @@ def test_single_zip_process():
     assert Path.exists(dest_path) is True
 
 
-def test_all_normal_compressed_files():
+def test_single_file_recursive_path_process():
+    """Normal single compressed file
+    decompress file to recursively path, like 11/22/33
+    """
+    print(CURRENT_DIR)
+    src_path = Path.joinpath(CURRENT_DIR, "data/source/MNIST.zip")
+    dest_path = Path.joinpath(CURRENT_DIR, "data/dest/11/22/33")
+
+    process = ZipProcess()
+    process.main(src_path, dest_path)
+    assert Path.exists(dest_path) is True
+
+
+def test_all_files_normal_files():
     """
     Normal decompress function test
     it will decompress all compressed files in directory data/source to data/dest
@@ -90,7 +103,7 @@ def test_relative_path_split_process():
     assert Path.exists(Path(dest_path + os.sep + "MNIST")) is True
 
 
-def test_all_split_compressed_files():
+def test_all_files_split_process():
     """
     Split decompress function test
     it will decompress all split compressed files in directory data/split_src to data/split_dest
@@ -120,8 +133,10 @@ def test_all_split_compressed_files():
 
 
 if __name__ == '__main__':
-    # test_single_zip_process()
-    # test_all_normal_compressed_files()
+    # test_singel_file_normal_process()
+    test_single_file_recursive_path_process()
+    # test_all_files_normal_files()
+
     # test_absolute_path_split_process()
     # test_relative_path_split_process()
-    test_all_split_compressed_files()
+    # test_all_files_split_process()
