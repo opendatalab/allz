@@ -17,8 +17,8 @@ def cli():
 
 @cli.command("-d", help="To decompress file")
 @click.option('--output-directory', '-o', default="./", help="The directory to write the contents of the archive. Defaults to the current directory.", required=False)
-@click.option("-q", is_flag=True, required=False)
-@click.option("-f", is_flag=True, required=False)
+@click.option("-q", is_flag=True, required=False, help="Run in quiet mode.")
+@click.option("-f", is_flag=True, required=False, help="Always overwrite files when a file to be unpacked already exists on disk. By default, the program will skips the file.")
 @click.argument("input", type=click.File("rb"), nargs=-1)
 def decompress(output_directory, input, q, f):
     src_path = ""
@@ -47,7 +47,7 @@ def decompress(output_directory, input, q, f):
         sys.exit(-1)
 
 
-@cli.command("check", help="Test which compressed files are supported")
+@cli.command("check", help="Test which compressed files are supported.")
 def check_file_type():
     de_main = DecompressMain()
     can, cannot = de_main.decompress_cmd_test(is_cli=True)
