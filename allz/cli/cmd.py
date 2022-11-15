@@ -35,19 +35,16 @@ def decompress(output_directory, input, q, f):
 
     try:
         de_main = DecompressMain()
-        res_status, stderr, stdout = de_main.Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True, is_force_mode=force_mode)
+        rtn_code, stderr, stdout = de_main.Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True, is_force_mode=force_mode)
         sys.stderr.write(stderr)
     
         if not q:
             sys.stderr.write(stdout)
 
-        if not res_status:
-            sys.exit(1)
-        else:
-            sys.exit(0)
+        sys.exit(rtn_code)
     except Exception:
         click.echo("allz decompress error, please check your command, you can wiew usage through the allz -d command")
-        sys.exit(1)
+        sys.exit(-1)
 
 
 @cli.command("check", help="Test which compressed files are supported")

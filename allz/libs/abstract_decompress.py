@@ -21,7 +21,7 @@ class AbstractDecompress(ABC):
 
     def _handle(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False, is_split_file=False):
         start_time = time.time()
-        res_status = True
+        rtn_code = 0
         stdout = ""
         stderr = ""
         cmd = f"unar -q -D -o {dest_path} {src_path}"
@@ -46,11 +46,11 @@ class AbstractDecompress(ABC):
                 cmd = handle_cmd
 
             unar_res = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+            rtn_code = unar_res.returncode
             stdout = unar_res.stdout
 
             if unar_res.returncode != 0:
                 self.log.exception(unar_res.stderr)
-                res_status = False
                 stderr = unar_res.stderr
 
             unar_res.check_returncode()
@@ -59,8 +59,8 @@ class AbstractDecompress(ABC):
             self.log.error(f"The compressed file {src_path} was processed with an error: {e}, elapsed time: {elapsed} 秒")
             self.log.exception(e)
             self.failed(src_path, dest_path, log_mode, is_cli)
-            res_status = False
-            return res_status, stderr, stdout
+
+            return rtn_code, stderr, stdout
 
         stdout += f"The decompress command is: {cmd} \n"
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
@@ -68,7 +68,7 @@ class AbstractDecompress(ABC):
 
         self.succeed(src_path, dest_path, log_mode, is_cli)
 
-        return res_status, stderr, stdout
+        return rtn_code, stderr, stdout
 
     @abstractmethod
     def decompress_test(self):
@@ -109,5 +109,5 @@ class AbstractDecompress(ABC):
         common.on_success(src_path, dest_path, log_mode)
 
     def main(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False, is_split_file=False):
-        res_status, stderr, stdout = self._handle(src_path, dest_path, log_mode, is_cli, is_force_mode, is_split_file)
-        return res_status, stderr, stdout
+        rtn_code, stderr, stdout = self._handle(src_path, dest_path, log_mode, is_cli, is_force_mode, is_split_file)
+        return rtn_code, stderr, stdout
