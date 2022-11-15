@@ -69,10 +69,8 @@ def test_absolute_path_split_process():
     Split single compressed file test
     src_path and dest_path use the absolute path
     """
-    src_path = "/home/work/srccode/github/allz/test/data/split_src/MNIST.tar.7z.001"
-    dest_path = "/home/work/srccode/github/allz/test/data/split_dest"
-    # src_path = Path.joinpath(CURRENT_DIR, "data/split_src/MNIST.tar.bz.0000")
-    # dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
+    src_path = str(Path.joinpath(CURRENT_DIR, "data/split_src/MNIST.tar.7z.001"))
+    dest_path = str(Path.joinpath(CURRENT_DIR, "data/split_dest"))
     print(src_path, dest_path)
 
     file_tester = FileTypeTester()
@@ -91,7 +89,7 @@ def test_relative_path_split_process():
     """
     src_path = "MNIST.tar.gz.0000"
     dest_path = "../split_dest"
-    target_path = Path("/home/work/srccode/github/allz/test/data/split_src/")
+    target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
     os.chdir(target_path)
 
     file_tester = FileTypeTester()

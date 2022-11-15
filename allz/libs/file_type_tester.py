@@ -66,14 +66,3 @@ class FileTypeTester():
                     similar_archive_list.append(str(Path.joinpath(Path(current_dir), file)))
 
         return similar_archive_list
-
-
-if __name__ == "__main__":
-    # src_path = "/home/work/srccode/github/allz/test/data/split_src/MNIST.tar.bz.0000"
-    src_path = "MNIST.tar.bz.0000"
-    file_tester = FileTypeTester()
-    # res, groups = file_tester.is_split_volume_archive(str(src_path))
-    split_lst = file_tester.get_split_volume_archives(str(src_path))
-
-    # print(res, groups)
-    print(split_lst)

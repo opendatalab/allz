@@ -77,11 +77,3 @@ class DecompressMain():
                 cannot_process_type.extend(COMPRESS_TYPE_KEY_MAPPING[cmd_key])
 
         return list(set(can_process_type)), list(set(cannot_process_type))
-
-
-if __name__ == '__main__':
-    src_path = "MNIST.tar.gz.0000"
-    # src_path = "/home/work/srccode/github/allz/test/data/split_src/MNIST.tar.gz.0000"
-    dest_path = "/home/work/srccode/github/allz/test/data/split_dest"
-    de_main = DecompressMain()
-    decom = de_main.Decompress(src_path, dest_path)
