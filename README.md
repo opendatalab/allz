@@ -54,12 +54,12 @@ allz check
 allz -d MNIST.7z
 ```
 
-#### In default, if the compressed file have already decompress before, it will skip the same file. You can use option -f to overwrite the files.
+In default, if the compressed file have already decompress before, it will skip the same file. You can use option -f to overwrite the files.
 ```bash
 allz -d -f MNIST.7z
 ```
 
-#### You can also mask screen log output by use option -q.
+You can also mask screen log output by use option -q.
 ```bash
 allz -d -q MNIST.7z
 ```
@@ -69,7 +69,7 @@ allz -d -q MNIST.7z
 allz -d MNIST.7z -o /tmp
 ```
 
-#### You can also use the relative destination path.
+You can also use the relative destination path.
 ```bash
 allz -d MNIST.7z -o ..
 ```
@@ -79,23 +79,23 @@ allz -d MNIST.7z -o ..
 allz -d MNIST.tar.7z.001 
 ```
 
-#### Decompress the split volumn file to specified directory by use option -o.
+Decompress the split volumn file to specified directory by use option -o.
 ```bash
 allz -d MNIST.tar.7z.001 -o /tmp
 ```
 
 #### 7.Handle the path with space in it
-#### Methods of using escapes
+Methods of using escapes
 ```bash
 allz -d 20220101\ todo/MNIST.7z -o /tmp/20220101\ done/MNIST.7z
 ```
-#### Methods of using quotation marks
+Methods of using quotation marks
 ```bash
 allz -d "20220101 todo/MNIST.7z" -o "/tmp/20220101 done/MNIST.7z"
 ```
 
 #### 8. Decompress the file into a recurvise destination directory
-#### It will automatically create folders that do not exist.
+It will automatically create folders that do not exist.
 ```bash
 allz -d MNIST.7z -o /tmp/today/fruit/apple/
 ```
