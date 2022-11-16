@@ -6,7 +6,7 @@ from pathlib import Path
 
 from allz.decompress.decompress_main import DecompressMain
 from allz.decompress.gz_split_process import GzSplitProcess
-from allz.decompress.tar_7z_split_process import Tar7zSplitProcess
+# from allz.decompress.tar_7z_split_process import Tar7zSplitProcess
 from allz.decompress.rar_split_process import RarSplitProcess
 from allz.decompress.zip_process import ZipProcess
 from allz.libs.file_type_tester import FileTypeTester
@@ -132,6 +132,10 @@ def test_all_files_split_process():
 
 
 def test_split_volumn_return_path():
+    """
+    Split decompress function test.
+    It will return the list of split volumn files path that match the input src_path file.
+    """
     src_path = "./MNIST.tar.0001"
     target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
     os.chdir(target_path)
@@ -142,6 +146,11 @@ def test_split_volumn_return_path():
 
 
 def test_all_return_path():
+    """
+    Split decompress function test.
+    If the input src_path is a normal compressed file, it will return the src_path, 
+    else if it is a split volumn file, it will return the list of split volumn files path that match the input src_path file.
+    """
     src_path = "./MNIST.tar.0001"
     target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
     os.chdir(target_path)
