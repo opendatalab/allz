@@ -52,9 +52,9 @@ class DecompressMain():
         unar_module = importlib.import_module(base_package_path + process_module)
         unar_class = getattr(unar_module, process_class)
         unar_instance = unar_class()
-        rtn_code, stderr, stdout, rtn_files_path = unar_instance.main(src_path, dest_path, log_mode, is_cli, is_force_mode, is_split_file)
+        rtn_code, stderr, stdout = unar_instance.main(src_path, dest_path, log_mode, is_cli, is_force_mode, is_split_file)
 
-        return rtn_code, stderr, stdout, rtn_files_path
+        return rtn_code, stderr, stdout
         
     def decompress_cmd_test(self, is_cli=False):
         base_package_path = "allz.decompress."

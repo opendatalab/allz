@@ -35,7 +35,7 @@ def decompress(output_directory, input, q, f):
 
     try:
         de_main = DecompressMain()
-        rtn_code, stderr, stdout, rtn_files_path = de_main.Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True, is_force_mode=force_mode)
+        rtn_code, stderr, stdout = de_main.Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True, is_force_mode=force_mode)
         sys.stderr.write(stderr)
     
         if not q:

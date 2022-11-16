@@ -22,7 +22,6 @@ class AbstractDecompress(ABC):
     def _handle(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False, is_split_file=False):
         start_time = time.time()
         rtn_code = 0
-        rtn_files_path = []
         stdout = ""
         stderr = ""
         cmd = f"unar -q -D -o {dest_path} {src_path}"
@@ -33,11 +32,10 @@ class AbstractDecompress(ABC):
 
         try:
             if not is_split_file:
-                rtn_files_path.append(src_path)
                 handle_cmd = self.handle(src_path, dest_path, is_force_mode)
             elif is_split_file:
-                rtn_files_path = self.file_type_tester.get_split_volume_archives(src_path)
-                handle_cmd = self.split_decompress(rtn_files_path, dest_path, is_force_mode)
+                split_files_path = self.file_type_tester.get_split_volume_archives(src_path)
+                handle_cmd = self.split_decompress(split_files_path, dest_path, is_force_mode)
             
             cmd = f"unar -q -D -o {dest_path} {src_path}"
 
@@ -62,7 +60,7 @@ class AbstractDecompress(ABC):
             self.log.exception(e)
             self.failed(src_path, dest_path, log_mode, is_cli)
 
-            return rtn_code, stderr, stdout, rtn_files_path
+            return rtn_code, stderr, stdout
 
         stdout += f"The decompress command is: {cmd} \n"
         elapsed = int((time.time() - start_time) * 1000) / 1000.0
@@ -70,7 +68,7 @@ class AbstractDecompress(ABC):
 
         self.succeed(src_path, dest_path, log_mode, is_cli)
 
-        return rtn_code, stderr, stdout, rtn_files_path
+        return rtn_code, stderr, stdout
 
     @abstractmethod
     def decompress_test(self):
@@ -111,5 +109,5 @@ class AbstractDecompress(ABC):
         common.on_success(src_path, dest_path, log_mode)
 
     def main(self, src_path, dest_path, log_mode=LOG_MODE_NORMAL, is_cli=False, is_force_mode=False, is_split_file=False):
-        rtn_code, stderr, stdout, rtn_files_path = self._handle(src_path, dest_path, log_mode, is_cli, is_force_mode, is_split_file)
-        return rtn_code, stderr, stdout, rtn_files_path
+        rtn_code, stderr, stdout = self._handle(src_path, dest_path, log_mode, is_cli, is_force_mode, is_split_file)
+        return rtn_code, stderr, stdout
