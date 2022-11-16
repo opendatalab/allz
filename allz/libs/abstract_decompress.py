@@ -75,14 +75,14 @@ class AbstractDecompress(ABC):
         pass
     
     def _decompress_test(self, is_cli=False):
-        decompress_cmd = self.decompress_test()
-        if not decompress_cmd:
-            return False
-
         if is_cli:
             self.log = common.get_logger(self.__class__.__name__, log_mode=LOG_MODE_QUIET)
 
         try:
+            decompress_cmd = self.decompress_test()
+            if not decompress_cmd:
+                return False
+
             decompress_res = subprocess.run(decompress_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             if decompress_res.returncode != 0:
                 self.log.exception(decompress_res.stderr.decode('utf-8'))
