@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="allz",
-    version="0.0.9",
+    version="0.1.0",
     author="opendatalab",
     author_email="yujia@pjlab.org.cn",
     description="A universal command line tool for compression and decompression",

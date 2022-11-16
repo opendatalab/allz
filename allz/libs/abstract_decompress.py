@@ -34,7 +34,7 @@ class AbstractDecompress(ABC):
             if not is_split_file:
                 handle_cmd = self.handle(src_path, dest_path, is_force_mode)
             elif is_split_file:
-                split_files_path = self.file_type_tester.get_split_volume_archives(src_path)
+                split_files_path = self.file_type_tester.get_split_volume_compressed_file_path_list(src_path)
                 handle_cmd = self.split_decompress(split_files_path, dest_path, is_force_mode)
             
             cmd = f"unar -q -D -o {dest_path} {src_path}"

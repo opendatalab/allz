@@ -25,18 +25,18 @@ class DecompressMain():
 
         # 1.判断压缩类型
         fileTester = FileTypeTester()
-        if fileTester.is_archive(src_path):
+        if fileTester.is_normal_compressed_file(src_path):
             # return False, "input compress file type test error, or compress type not supported \n", ""
-            res, archive_type = fileTester.is_support_archive_type(src_path)
+            res, archive_type = fileTester.is_support_normal_compressed_type(src_path)
             # 2-1.遍历配置的压缩类型找到对应的解压命令
             for type_key, type_value in COMPRESS_TYPE_KEY_MAPPING.items():
                 if archive_type in type_value:
                     archive_type_cmd_init = type_key
                     break
             archive_type_cmd_key = COMPRESS_TYPE_COMMAND[archive_type_cmd_init]
-        elif fileTester.is_split_volume_archive(src_path)[0]:
+        elif fileTester.is_split_volume_compressed_file(src_path)[0]:
             prefix_path = ".".join(str(src_path).split(".")[:-1])
-            res, archive_type = fileTester.is_support_archive_type(prefix_path)
+            res, archive_type = fileTester.is_support_normal_compressed_type(prefix_path)
             # 2-2.遍历配置的分片压缩类型找到对应的解压命令
             for type_key, type_value in SPLIT_COMPRESS_TYPE_KEY_MAPPING.items():
                 if archive_type in type_value:

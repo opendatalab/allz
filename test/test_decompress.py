@@ -74,7 +74,7 @@ def test_absolute_path_split_process():
     print(src_path, dest_path)
 
     file_tester = FileTypeTester()
-    split_files = file_tester.get_split_volume_archives(src_path)
+    split_files = file_tester.get_split_volume_compressed_file_path_list(src_path)
     assert len(split_files) == 2
 
     process = Tar7zSplitProcess()
@@ -93,7 +93,7 @@ def test_relative_path_split_process():
     os.chdir(target_path)
 
     file_tester = FileTypeTester()
-    split_files = file_tester.get_split_volume_archives(src_path)
+    split_files = file_tester.get_split_volume_compressed_file_path_list(src_path)
     assert len(split_files) == 2
 
     process = GzSplitProcess()
