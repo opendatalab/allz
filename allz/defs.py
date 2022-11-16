@@ -36,7 +36,8 @@ SPLIT_COMPRESS_TYPE_KEY_MAPPING = {
     "gz_split_process": [".tar.gz", ".tgz"],
     "tar_7z_split_process": [".tar.7z"],
     "tar_split_process": [".tar"],
-    "z7_split_process": [".7z", ".zip"]
+    "z7_split_process": [".7z", ".zip"],
+    "rar_split_process": [".rar"]
 }
 
 SPLIT_COMPRESS_TYPE_COMMAND = {
@@ -63,7 +64,13 @@ SPLIT_COMPRESS_TYPE_COMMAND = {
     "z7_split_process": {
         "process_module": "z7_split_process",
         "process_class": "Z7SplitProcess"
-    }
+    },
+
+    "rar_split_process": {
+        "process_module": "rar_split_process",
+        "process_class": "RarSplitProcess"
+    },
+
 }
 
 COMPRESS_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.bz", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip", ".tar.7z"]

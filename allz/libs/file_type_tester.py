@@ -1,7 +1,6 @@
 import os
 import pathlib
 import re
-from pathlib import Path
 
 from allz.defs import COMPRESS_FILE_TYPES
 
@@ -17,6 +16,8 @@ class FileTypeTester():
         self.archive_file_type = COMPRESS_FILE_TYPES
         self._init_ext_regex()
         self.split_volume_archive = "\\d{3,4}$"
+        self.rar_split_volumn_match_regex = r".*.part\d{1,4}.rar$"
+        self.rar_split_volumn_search_regex = r".part\d{1,4}.rar$"
 
     def _init_ext_regex(self):
         if len(self.archive_file_type) == 0:
@@ -27,14 +28,26 @@ class FileTypeTester():
         self.ext_regex = re.compile(".+\\.(" + "|".join(exts) + ")$")
 
     def is_normal_compressed_file(self, file_path):
-        return self.ext_regex.match(file_path) is not None
-    
+        if self._is_rar_split_volume_compressed_file(file_path):
+            return False
+        else:
+            return self.ext_regex.match(file_path) is not None
+
     def is_split_volume_compressed_file(self, file_path):
-        matches = re.search(self.split_volume_archive, file_path)
+        to_replace = ""
+        if self._is_rar_split_volume_compressed_file(file_path):
+            matches = re.search(self.rar_split_volumn_search_regex, file_path)
+            to_replace = ".part"
+        else:
+            matches = re.search(self.split_volume_archive, file_path)
+        
         if matches:
-            return True, matches.group()
+            return True, matches.group().replace(to_replace, "")
         else:
             return False, None
+
+    def get_split_volume_compressed_file_list(self, file_path):
+        pass
     
     def _get_normal_compressed_type_suffix(self, file_path):
         path_splits = str(file_path).strip().split(".")
@@ -75,3 +88,6 @@ class FileTypeTester():
             rtn_file_path_lst.extend(self.get_split_volume_compressed_file_path_list(file_path))
         
         return rtn_file_path_lst
+
+    def _is_rar_split_volume_compressed_file(self, file_path):
+        return re.compile(self.rar_split_volumn_match_regex).match(file_path) is not None

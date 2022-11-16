@@ -7,6 +7,7 @@ from pathlib import Path
 from allz.decompress.decompress_main import DecompressMain
 from allz.decompress.gz_split_process import GzSplitProcess
 from allz.decompress.tar_7z_split_process import Tar7zSplitProcess
+from allz.decompress.rar_split_process import RarSplitProcess
 from allz.decompress.zip_process import ZipProcess
 from allz.libs.file_type_tester import FileTypeTester
 
@@ -69,15 +70,15 @@ def test_absolute_path_split_process():
     Split single compressed file test
     src_path and dest_path use the absolute path
     """
-    src_path = str(Path.joinpath(CURRENT_DIR, "data/split_src/MNIST.tar.7z.001"))
+    src_path = str(Path.joinpath(CURRENT_DIR, "data/split_src/MNIST.part1.rar"))
     dest_path = str(Path.joinpath(CURRENT_DIR, "data/split_dest"))
     print(src_path, dest_path)
 
     file_tester = FileTypeTester()
     split_files = file_tester.get_split_volume_compressed_file_path_list(src_path)
-    assert len(split_files) == 2
+    assert len(split_files) == 4
 
-    process = Tar7zSplitProcess()
+    process = RarSplitProcess()
     process.main(src_path, dest_path, is_split_file=True)
     assert Path.exists(Path(dest_path + os.sep + "MNIST")) is True
 
