@@ -30,12 +30,12 @@ allz -d -q -f src_path -o dest_path
 ## Examples
 ####  Suppose we now have a normal compressed file MNIST.7z and two split volumn compressed files MNIST.tar.7z.001, MNIST.tar.7z.002.
 
-### 1. View the version  
+#### 1. View the version  
 ```bash
 allz --version
 ```
 
-### 2. View the help
+#### 2. View the help
 ```bash
 allz -h
 ```
@@ -44,12 +44,12 @@ or
 allz --help
 ```
 
-### 3. Check which types are supported for decompression in your local environment
+#### 3. Check which types are supported for decompression in your local environment
 ```bash
 allz check
 ```
 
-### 4. Decompress the normal file MNIST.7z to current directory
+#### 4. Decompress the normal file MNIST.7z to current directory
 ```bash
 allz -d MNIST.7z
 ```
@@ -64,7 +64,7 @@ allz -d -f MNIST.7z
 allz -d -q MNIST.7z
 ```
 
-### 5. Decompress the normal file MNIST.7z to the specified directory by use option -o
+#### 5. Decompress the normal file MNIST.7z to the specified directory by use option -o
 ```bash
 allz -d MNIST.7z -o /tmp
 ```
@@ -74,7 +74,7 @@ allz -d MNIST.7z -o /tmp
 allz -d MNIST.7z -o ..
 ```
 
-### 6. Decompress the split volumn file MNIST.tar.7z.001
+#### 6. Decompress the split volumn file MNIST.tar.7z.001
 ```bash
 allz -d MNIST.tar.7z.001 
 ```
@@ -84,7 +84,7 @@ allz -d MNIST.tar.7z.001
 allz -d MNIST.tar.7z.001 -o /tmp
 ```
 
-### 7.Handle the path with space in it
+#### 7.Handle the path with space in it
 #### Methods of using escapes
 ```bash
 allz -d 20220101\ todo/MNIST.7z -o /tmp/20220101\ done/MNIST.7z
@@ -94,7 +94,7 @@ allz -d 20220101\ todo/MNIST.7z -o /tmp/20220101\ done/MNIST.7z
 allz -d "20220101 todo/MNIST.7z" -o "/tmp/20220101 done/MNIST.7z"
 ```
 
-### 8. Decompress the file into a recurvise destination directory
+#### 8. Decompress the file into a recurvise destination directory
 #### It will automatically create folders that do not exist.
 ```bash
 allz -d MNIST.7z -o /tmp/today/fruit/apple/
