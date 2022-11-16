@@ -63,6 +63,15 @@ class FileTypeTester():
             current_file_list = [ar_file for ar_file in os.listdir(current_dir) if os.path.isfile(current_dir + "/" + ar_file)]
             for file in current_file_list:
                 if self.is_split_volume_compressed_file(current_dir + "/" + file)[0] and (str(file)[:-len(suffix_str)] == prefix_path):
-                    similar_archive_list.append(str(Path.joinpath(Path(current_dir), file)))
+                    similar_archive_list.append("/".join([current_dir, file]))
 
         return similar_archive_list
+
+    def get_all_compressed_file_path_list(self, file_path):
+        rtn_file_path_lst = []
+        if self.is_normal_compressed_file(file_path):
+            rtn_file_path_lst.append(file_path)
+        elif self.is_split_volume_compressed_file(file_path)[0]:
+            rtn_file_path_lst.extend(self.get_split_volume_compressed_file_path_list(file_path))
+        
+        return rtn_file_path_lst

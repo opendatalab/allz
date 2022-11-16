@@ -130,11 +130,34 @@ def test_all_files_split_process():
         assert os.path.exists(dest_path + "/MNIST/media/" + dest_file_name) is True
 
 
+def test_split_volumn_return_path():
+    src_path = "./MNIST.tar.0001"
+    target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
+    os.chdir(target_path)
+    file_tester = FileTypeTester()
+    res_lst = file_tester.get_split_volume_compressed_file_path_list(src_path)
+    
+    assert len(res_lst) == 8
+
+
+def test_all_return_path():
+    src_path = "./MNIST.tar.0001"
+    target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
+    os.chdir(target_path)
+    file_tester = FileTypeTester()
+    res_lst = file_tester.get_all_compressed_file_path_list(src_path)
+    
+    assert len(res_lst) > 0
+
+
 if __name__ == '__main__':
     # test_singel_file_normal_process()
-    test_single_file_recursive_path_process()
+    # test_single_file_recursive_path_process()
     # test_all_files_normal_files()
 
     # test_absolute_path_split_process()
     # test_relative_path_split_process()
     # test_all_files_split_process()
+
+    # test_split_volumn_return_path()
+    test_all_return_path()
