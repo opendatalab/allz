@@ -21,23 +21,17 @@ def cli():
 @click.option("-f", is_flag=True, required=False, help="Always overwrite files when a file to be unpacked already exists on disk. By default, the program will skips the file.")
 @click.argument("input", type=click.File("rb"), nargs=-1)
 def decompress(output_directory, input, q, f):
-    src_path = ""
     log_mode = LOG_MODE_NORMAL
-    force_mode = False
     if q:
         log_mode = LOG_MODE_QUIET
-    
-    if f:
-        force_mode = True
 
-    if len(input) > 0:
-        src_path = io.BufferedReader(input[0]).name
-
+    force_mode = bool(f)
+    src_path = io.BufferedReader(input[0]).name if len(input) > 0 else ""
     try:
         de_main = DecompressMain()
         rtn_code, stderr, stdout = de_main.Decompress(src_path, output_directory, log_mode=log_mode, is_cli=True, is_force_mode=force_mode)
         sys.stderr.write(stderr)
-    
+
         if not q:
             sys.stderr.write(stdout)
 
@@ -51,8 +45,8 @@ def decompress(output_directory, input, q, f):
 def check_file_type():
     de_main = DecompressMain()
     can, cannot = de_main.decompress_cmd_test(is_cli=True)
-    click.echo("The decompression types that are supported are: " + str(", ".join(can)))
-    click.echo("The decompression types that are not supported are: " + str(", ".join(cannot)))
+    click.echo("The decompression types that are supported are: " + ", ".join(can))
+    click.echo("The decompression types that are not supported are: " + ", ".join(cannot))
 
 
 cli.add_command(decompress)
