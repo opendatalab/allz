@@ -7,6 +7,7 @@ import click
 
 from allz.decompress.decompress_main import DecompressMain
 from allz.defs import LOG_MODE_NORMAL, LOG_MODE_QUIET
+from allz.libs.file_type_tester import FileTypeTester
 
 
 @click.group(context_settings={"help_option_names": ("-h", "--help"), "ignore_unknown_options": True})
@@ -49,8 +50,23 @@ def check_file_type():
     click.echo("The decompression types that are not supported are: " + ", ".join(cannot))
 
 
+@cli.command("-p", help="Output compressed normal and split volumn regex match pattern in two lines.")
+@click.option("--only-normal", is_flag=True, required=False, help="Only output normal compressed files regex match pattern.")
+@click.option("--only-split", is_flag=True, required=False, help="Only output split volumn compressed files regex match pattern.")
+def compressed_file_regex_pattern(only_normal, only_split):
+    tester = FileTypeTester()
+    if only_normal:
+        click.echo(tester.ext_regex.pattern)
+    elif only_split:
+        click.echo(tester.split_volume_match_regex.pattern)
+    else:
+        click.echo(tester.ext_regex.pattern)
+        click.echo(tester.split_volume_match_regex.pattern)
+
+
 cli.add_command(decompress)
 cli.add_command(check_file_type)
+cli.add_command(compressed_file_regex_pattern)
 
 
 if __name__ == "__main__":
