@@ -30,6 +30,8 @@ COMPRESS_TYPE_COMMAND = {
     }
 }
 
+SPLIT_COMPRESS_FILE_TYPES = [".tar.bz2", ".tar.bz", ".tar.gz", ".tgz", ".tar.7z", ".tar", ".7z", ".zip"]
+
 # 分片解压类型与key定义
 SPLIT_COMPRESS_TYPE_KEY_MAPPING = {
     "bz2_split_process": [".tar.bz2", ".tar.bz"],
