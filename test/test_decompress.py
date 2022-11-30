@@ -163,12 +163,12 @@ def test_all_return_path():
 def test_split_regex_match():
     file_lst = ["MNIST.tar.0000", "MNIST.tar.0001", "MNIST.tar.0002", "MNIST.tar.0003", "MNIST.tar.0004", "MNIST.tar.7z.001", "MNIST.tar.7z.002", 
                 "MNIST.part1.rar", "MNIST.part2.rar", "MNIST.part3.rar", "MNIST.part4.rar", "MNIST.7z.001", "MNIST.7z.002", "123.rar", "abc.zip", 
-                "abc", "000", "0000.tar", "02287.txt"]
+                "abc", "000", "0000.tar", "02287.txt", "NLST_CT.tar.gz.part0000", "NLST_CT.tar.gz.part0001", "NLST_CT.tar.gz.part0002"]
 
     tester = FileTypeTester() 
     res_lst = tester.get_compressed_files_classify_lst(file_lst)
 
-    assert len(res_lst) == 7
+    assert len(res_lst) == 8
 
 
 def test_with_path_split_regex_match():
@@ -185,6 +185,10 @@ def test_with_path_split_regex_match():
                 "/home/work/srccode/github/allz/allz/libs/MNIST.part4.rar", 
                 "/home/work/srccode/github/allz/allz/libs/MNIST.7z.001", 
                 "/home/work/srccode/github/allz/allz/libs/MNIST.7z.002",
+                "/home/work/srccode/github/allz/allz/libs/NLST_CT.tar.gz.part0000",
+                "/home/work/srccode/github/allz/allz/libs/NLST_CT.tar.gz.part0001",
+                "/home/work/srccode/github/allz/allz/libs/NLST_CT.tar.gz.part0002",
+                "/home/work/srccode/github/allz/allz/libs/NLST_CT.tar.gz.part0003",
                 "/home/work/srccode/github/allz/allz/libs/123.rar",
                 "/home/work/srccode/github/allz/allz/libs/acb",
                 "/home/work/srccode/github/allz/allz/libs/0000",
@@ -195,7 +199,7 @@ def test_with_path_split_regex_match():
     tester = FileTypeTester() 
     res_lst = tester.get_compressed_files_classify_lst(file_lst)
 
-    assert len(res_lst) == 6
+    assert len(res_lst) == 7
 
 
 if __name__ == '__main__':
@@ -210,4 +214,5 @@ if __name__ == '__main__':
     # test_split_volumn_return_path()
     # test_all_return_path()
 
-    test_with_path_split_regex_match()
+    test_split_regex_match()
+    # test_with_path_split_regex_match()
