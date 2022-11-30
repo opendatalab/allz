@@ -124,13 +124,13 @@ class FileTypeTester():
             if file_name in sum(tmp_file_lst, []):
                 continue
             if self.is_normal_compressed_file(file_name):
-                compressed_file_lst = [os.path.join(base_path, file_name)]
+                compressed_file_lst = ["/".join([base_path, file_name])]
                 result_lst.append(compressed_file_lst)
                 tmp_file_lst.append(compressed_file_lst)
             elif self.is_split_volume_compressed_file_regex(file_name):
                 left_lst = list(set(raw_file_lst) - set(sum(tmp_file_lst, [])))
                 match_lst = self.find_split_volume_compressed_file_list(file_name, left_lst)
-                result_lst.append([os.path.join(base_path, item) for item in match_lst])
+                result_lst.append(["/".join([base_path, item]) for item in match_lst])
                 tmp_file_lst.append(match_lst)
 
         return result_lst
