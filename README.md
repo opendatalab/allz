@@ -22,10 +22,10 @@ allz -d -q -f src_path -o dest_path
 
 - -d &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; Decompress normal or split compressed files.  
 - -q &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; Run in quiet mode.  
-- -f &emsp;&emsp;&emsp;&emsp;&emsp;&ensp; Always overwrite files when a file to be unpacked already exists on disk. By default, the program will skips the file.  
-- -p &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; Stdout normal and split volumn compressed file regex match pattern.  
-  - -p --only-normal &emsp;&emsp; Only stdout normal compressed files regex match pattern.      
-  - -p --only-split  &emsp;&emsp;&emsp;&nbsp; Only stdout split volumn compressed files regex match pattern.
+- -f &emsp;&emsp;&emsp;&emsp;&emsp;&ensp; Always overwrite files when a file to be unpacked already exists on disk. By default, the program will skips the file.
+- -p &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp; Output regular expressions for both regular compressed files and slice compressed files successively: the first line is for the normal compressed file, the second line is for the split volumn compressed file.
+  - -p --only-normal &emsp;&emsp; Output regular matching expressions for normal compressed files only.
+  - -p --only-split  &emsp;&emsp;&emsp;&nbsp; Output regular expressions for split volumn compressed files only.
 
 ### Available options:  
 - --output-directory (-o) <string>  &emsp;&emsp;&ensp; The directory to write the contents of the archive to. Defaults to the current directory.
@@ -112,7 +112,7 @@ allz -d MNIST.7z -o /tmp/today/fruit/apple/
 
 - A short usage example:
   ```python
-    import allz.libs.file_type_tester as FileTypeTester
+    from allz.libs.file_type_tester import FileTypeTester
 
     file_lst = ["MNIST.tar.0000", "MNIST.tar.0001", "MNIST.tar.0002", "MNIST.tar.0003", "MNIST.tar.0004", "MNIST.tar.7z.001", "MNIST.tar.7z.002", "MNIST.part1.rar", "MNIST.part2.rar", "MNIST.part3.rar", "MNIST.part4.rar", "MNIST.7z.001", "MNIST.7z.002", "123.rar", "abc.zip", "abc", "000", "0000.tar", "02287.txt"]
 
