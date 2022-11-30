@@ -50,18 +50,17 @@ def check_file_type():
     click.echo("The decompression types that are not supported are: " + ", ".join(cannot))
 
 
-@cli.command("-p", help="Output compressed normal and split volumn regex match pattern in two lines.")
-@click.option("--only-normal", is_flag=True, required=False, help="Only output normal compressed files regex match pattern.")
-@click.option("--only-split", is_flag=True, required=False, help="Only output split volumn compressed files regex match pattern.")
+@cli.command("-p", help="Stdout normal and split volumn compressed file regex match pattern.")
+@click.option("--only-normal", is_flag=True, required=False, help="Only stdout normal compressed files regex match pattern.")
+@click.option("--only-split", is_flag=True, required=False, help="Only stdout split volumn compressed files regex match pattern.")
 def compressed_file_regex_pattern(only_normal, only_split):
     tester = FileTypeTester()
     if only_normal:
-        click.echo(tester.ext_regex.pattern)
+        sys.stdout.write(f"{tester.ext_regex.pattern}\n")
     elif only_split:
-        click.echo(tester.split_volume_match_regex.pattern)
+        sys.stdout.write(f"{tester.split_volume_match_regex.pattern}\n")
     else:
-        click.echo(tester.ext_regex.pattern)
-        click.echo(tester.split_volume_match_regex.pattern)
+        sys.stdout.write(f"{tester.ext_regex.pattern}\n{tester.split_volume_match_regex.pattern}\n")
 
 
 cli.add_command(decompress)
