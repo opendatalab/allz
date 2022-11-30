@@ -16,7 +16,7 @@ def cli():
     pass
 
 
-@cli.command("-d", help="To decompress file")
+@cli.command("-d", help="To decompress file.")
 @click.option('--output-directory', '-o', default="./", help="The directory to write the contents of the archive. Defaults to the current directory.", required=False)
 @click.option("-q", is_flag=True, required=False, help="Run in quiet mode.")
 @click.option("-f", is_flag=True, required=False, help="Always overwrite files when a file to be unpacked already exists on disk. By default, the program will skips the file.")
