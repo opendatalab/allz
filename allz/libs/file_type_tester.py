@@ -17,7 +17,7 @@ class FileTypeTester():
         self.split_archive_file_type = SPLIT_COMPRESS_FILE_TYPES
         self._init_ext_regex()
         # self.split_volume_match_regex = r".*\d{3,4}$"
-        self.split_volume_search_regex = r"\d{3,4}$"
+        self.split_volume_search_regex = r"\d{2,4}$"
         self.rar_split_volumn_match_regex = r".*.part\d{1,4}.rar$"
         self.rar_split_volumn_search_regex = r".part\d{1,4}.rar$"
 
@@ -28,7 +28,7 @@ class FileTypeTester():
         split_exts = [ext.strip(".\r\n").replace(".", "\\.") for ext in self.split_archive_file_type]
 
         self.ext_regex = re.compile(".+\\.(" + "|".join(exts) + ")$")
-        self.split_volume_match_regex = re.compile("(.+\\.(" + "|".join(split_exts) + ")\\..*\\d{3,4}$)|(.+\\.part\\d{1,4}\\.rar$)")
+        self.split_volume_match_regex = re.compile("(.+\\.(" + "|".join(split_exts) + ")\\..*\\d{2,4}$)|(.+\\.part\\d{1,4}\\.rar$)")
 
     def is_normal_compressed_file(self, file_path):
         if self._is_rar_split_volume_compressed_file(file_path):
