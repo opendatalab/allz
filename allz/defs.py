@@ -3,7 +3,7 @@
 COMPRESS_TYPE_KEY_MAPPING = {
     "zip_process": [".zip"],
     "tar_bz_process": [".tar.bz", ".tar.bz2"],
-    "unar_process": [".7z", ".tar", ".tar.bz2", ".tar.gz", ".tar.lzma", ".tar.xz", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip"],
+    "unar_process": [".7z", ".tar", ".tar.bz2", ".tar.gz", ".tar.lzma", ".tar.xz", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip", "gzip"],
     "rar_process": [".rar"]
 }
 
@@ -75,7 +75,7 @@ SPLIT_COMPRESS_TYPE_COMMAND = {
 
 }
 
-COMPRESS_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.bz", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip", ".tar.7z"]
+COMPRESS_FILE_TYPES = [".7z", ".tar", ".tar.bz2", ".tar.bz", ".tar.gz", ".tar.lzma", ".tar.xz", ".rar", ".tgz", ".bz2", ".gz", ".lzma", ".xz", ".zip", ".tar.7z", "gzip"]
 
 # 日志打印出来的格式
 LOG_LEVEL = 'INFO'
