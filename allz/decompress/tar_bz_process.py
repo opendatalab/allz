@@ -11,12 +11,12 @@ class TarBzProcess(AbstractDecompress):
         else:
             cmd = f"tar xjf {src_path} -C {dest_path} --skip-old-files"
 
-        return cmd if cmd else None
+        return cmd or None
 
     def decompress_test(self):
         cmd = "tar --help"
 
-        return cmd if cmd else None
+        return cmd or None
 
     def split_decompress(self, split_fiels, dest_path):
         pass

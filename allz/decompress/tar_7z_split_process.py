@@ -17,7 +17,7 @@ class Tar7zSplitProcess(AbstractDecompress):
             else:
                 cmd = f"7z x -aos {split_first_path} -o{dest_path} && tar -xvf {split_tar_path} -C {dest_path} --skip-old-files && rm {split_tar_path}"
 
-        return cmd if cmd else None
+        return cmd or None
     
     def handle(self, src_path, dest_path, is_force_mode=False):
         pass

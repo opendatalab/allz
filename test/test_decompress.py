@@ -46,12 +46,11 @@ def test_all_files_normal_files():
     dest_path_lst = []
     dest_file_name = '000000000001.jpg'
     archive_dir = Path.joinpath(CURRENT_DIR, "data/source")
-    dest_dir = Path.joinpath(CURRENT_DIR, "data/dest") 
+    dest_dir = Path.joinpath(CURRENT_DIR, "data/dest")
     for archive_file in os.listdir(archive_dir):
-        is_file = os.path.isfile(Path.joinpath(archive_dir, archive_file))
-        if is_file:
+        if os.path.isfile(Path.joinpath(archive_dir, archive_file)):
             src_path = "/".join([str(archive_dir), archive_file])
-            dest_path = "/".join([str(dest_dir), archive_file + "#"])
+            dest_path = "/".join([str(dest_dir), f"{archive_file}#"])
             dest_path_lst.append(dest_path)
             de_main = DecompressMain()
             de_main.Decompress(src_path, dest_path)
@@ -59,10 +58,10 @@ def test_all_files_normal_files():
     for dest_path in dest_path_lst:
         assert os.path.exists(dest_path) is True
         type_suffix = ".".join(dest_path.split(".")[1:])
-        if type_suffix in ["jpg.bz2#", "jpg.gz#", "jpg.lzma#", "jpg.xz#"]:
+        if type_suffix in {"jpg.bz2#", "jpg.gz#", "jpg.lzma#", "jpg.xz#", "jpg.gzip#"}:
             assert os.path.exists(dest_path + os.sep + dest_file_name) is True
         else:
-            assert os.path.exists(dest_path + "/MNIST/media/" + dest_file_name) is True
+            assert os.path.exists(f"{dest_path}/MNIST/media/{dest_file_name}") is True
 
 
 def test_absolute_path_split_process():
@@ -113,22 +112,19 @@ def test_all_files_split_process():
     split_dest_dir = Path.joinpath(CURRENT_DIR, "data/split_dest") 
 
     for archive_file in os.listdir(split_src_dir):
-        is_file = os.path.isfile(Path.joinpath(split_src_dir, archive_file))
-        if is_file:
+        if os.path.isfile(Path.joinpath(split_src_dir, archive_file)):
             if ".tar.7z." in archive_file and not str(archive_file).endswith(".001"):
                 continue
 
             src_path = "/".join([str(split_src_dir), archive_file])
-            dest_path = "/".join([str(split_dest_dir), archive_file + "#"])
+            dest_path = "/".join([str(split_dest_dir), f"{archive_file}#"])
             dest_path_lst.append(dest_path)
             de_main = DecompressMain()
             de_main.Decompress(src_path, dest_path)
-            # de_main.Decompress(src_path, dest_path, is_force_mode=True)
-
     for dest_path in dest_path_lst:
         assert os.path.exists(dest_path) is True
 
-        assert os.path.exists(dest_path + "/MNIST/media/" + dest_file_name) is True
+        assert os.path.exists(f"{dest_path}/MNIST/media/{dest_file_name}") is True
 
 
 def test_split_volumn_return_path():
@@ -137,6 +133,7 @@ def test_split_volumn_return_path():
     It will return the list of split volumn files path that match the input src_path file.
     """
     src_path = "./MNIST.tar.0001"
+    # src_path = "./MNIST.tar.gz.0000"
     target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
     os.chdir(target_path)
     file_tester = FileTypeTester()
@@ -211,8 +208,8 @@ if __name__ == '__main__':
     # test_relative_path_split_process()
     # test_all_files_split_process()
 
-    # test_split_volumn_return_path()
+    test_split_volumn_return_path()
     # test_all_return_path()
 
-    test_split_regex_match()
+    # test_split_regex_match()
     # test_with_path_split_regex_match()

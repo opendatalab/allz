@@ -10,13 +10,13 @@ class ZipProcess(AbstractDecompress):
             cmd = f"7z x {src_path} -o{dest_path} -aoa"
         else:
             cmd = f"7z x {src_path} -o{dest_path} -aos"
-        
-        return cmd if cmd else None
+
+        return cmd or None
 
     def decompress_test(self):
         cmd = "7z --help"
-        
-        return cmd if cmd else None
+
+        return cmd or None
 
     def split_decompress(self, split_fiels, dest_path):
         pass

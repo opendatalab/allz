@@ -62,7 +62,7 @@ class FileTypeTester():
         return similar_archive_list
     
     def _get_normal_compressed_type_suffix(self, file_path):
-        path_splits = str(file_path).strip().split(".")
+        path_splits = str(file_path).rstrip(".").split(".")
         suffix_last_one = f".{path_splits[-1]}"
         suffix_last_two = "." + ".".join(path_splits[-2:])
 

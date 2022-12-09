@@ -14,7 +14,7 @@ class TarSplitProcess(AbstractDecompress):
             else:
                 cmd = f"cat {split_files_lst} | tar xf - -C {dest_path} --skip-old-files"
 
-        return cmd if cmd else None
+        return cmd or None
     
     def handle(self, src_path, dest_path, is_force_mode=False):
         pass

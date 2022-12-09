@@ -3,6 +3,7 @@ import sys
 
 from allz.defs import LOG_LEVEL, LOG_STDOUT_FORMAT, LOG_MODE_NORMAL
 from loguru import logger
+from allz.libs.file_type_tester import FileTypeTester
 
 
 def get_logger(name: str, log_mode=LOG_MODE_NORMAL):
@@ -30,3 +31,14 @@ def on_failure(src_path: str, des_path: str, log_mode=LOG_MODE_NORMAL) -> None:
 
 def set_log_mode(class_name, log_mode=LOG_MODE_NORMAL):
     return get_logger(class_name, log_mode)
+
+
+def get_split_volumn_suffix(src_path):
+    fileTester = FileTypeTester()
+    is_split, suffix_str = fileTester.is_split_volume_compressed_file(src_path)
+    if is_split and suffix_str:
+        prefix_path = src_path.replace(suffix_str, "")
+        
+        return True, prefix_path
+    else:
+        return False, ""

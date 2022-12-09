@@ -11,7 +11,7 @@ class RarSplitProcess(AbstractDecompress):
     def decompress_test(self):
         cmd = "rar"
 
-        return cmd if cmd else None
+        return cmd or None
     
     def split_decompress(self, split_files, dest_path, is_force_mode=False):
         cmd = ""
@@ -21,4 +21,4 @@ class RarSplitProcess(AbstractDecompress):
             else:
                 cmd = f"rar x {split_files[0]} {dest_path} -o-"
 
-        return cmd if cmd else None
+        return cmd or None
