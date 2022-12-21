@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="allz",
-    version="0.0.1",
+    version="0.1.3",
     author="opendatalab",
     author_email="yujia@pjlab.org.cn",
     description="A universal command line tool for compression and decompression",
@@ -19,10 +19,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        'importlib',
+        
     ],
     python_requires='>=3.7',
-    keywords='python, compress, decompress, archive',
+    keywords='python, compress, decompress, allz',
     entry_points={'console_scripts': [
         'allz = allz.cli.cmd:cli',
     ]},

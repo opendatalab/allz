@@ -1,7 +1,7 @@
-from allz.libs.abstract_unarchive import AbstractUnarchive
-from allz.libs.unarchive_tester import ArchiveTypeTester
+from allz.libs.abstract_decompress import AbstractDecompress
+from allz.libs.file_type_tester import FileTypeTester
 
 __all__ = [
-    "AbstractUnarchive",
-    "ArchiveTypeTester"
+    "AbstractDecompress",
+    "FileTypeTester"
 ]

@@ -1,3 +1,3 @@
-from allz.unarchive.unarchive_main import Unarchive
+from allz.decompress.decompress_main import DecompressMain
 
-__all__ = ["Unarchive"]
+__all__ = ["DecompressMain"]
