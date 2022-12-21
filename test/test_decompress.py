@@ -199,6 +199,37 @@ def test_with_path_split_regex_match():
     assert len(res_lst) == 7
 
 
+def test_single_file_split_process():
+    """
+    Split decompress function test
+    it will decompress a split compressed files in directory data/split_src to data/split_dest
+    """
+    split_src_dir = Path.joinpath(CURRENT_DIR, "data/split_src")
+    split_dest_dir = Path.joinpath(CURRENT_DIR, "data/split_dest") 
+
+    split_src_file = "MNIST.tar.gz.part0000"
+    dest_file_name = '000000000001.jpg'
+
+    src_path = "/".join([str(split_src_dir), split_src_file])
+    dest_path = "/".join([str(split_dest_dir), f"{split_src_file}#"])
+    de_main = DecompressMain()
+    rtn_code, stderr, stdout = de_main.Decompress(src_path, dest_path)
+
+    assert os.path.exists(dest_path) is True
+
+    assert os.path.exists(f"{dest_path}/MNIST/media/{dest_file_name}") is True
+
+
+def test_split_volumn_type_match():
+    split_src_dir = Path.joinpath(CURRENT_DIR, "data/split_src")
+
+    tester = FileTypeTester()
+    for file_path in os.listdir(split_src_dir):
+        is_arhive, _ = tester.is_support_split_volumn_type(file_path)
+
+        assert is_arhive
+
+
 if __name__ == '__main__':
     # test_singel_file_normal_process()
     # test_single_file_recursive_path_process()
@@ -208,8 +239,11 @@ if __name__ == '__main__':
     # test_relative_path_split_process()
     # test_all_files_split_process()
 
-    test_split_volumn_return_path()
+    # test_split_volumn_return_path()
     # test_all_return_path()
 
     # test_split_regex_match()
     # test_with_path_split_regex_match()
+
+    # test_single_files_split_process()
+    test_split_volumn_type_match()

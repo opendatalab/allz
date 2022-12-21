@@ -37,8 +37,8 @@ def decompress(output_directory, input, q, f):
             sys.stderr.write(stdout)
 
         sys.exit(rtn_code)
-    except Exception:
-        click.echo("allz decompress error, please check your command, you can wiew usage through the allz -d command")
+    except Exception as e:
+        click.echo(f"allz decompress error, {e}")
         sys.exit(-1)
 
 

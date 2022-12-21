@@ -35,12 +35,8 @@ class DecompressMain():
                     break
             archive_type_cmd_key = COMPRESS_TYPE_COMMAND[archive_type_cmd_init]
         else:
-            is_split, prefix_path = common.get_split_volumn_suffix(src_path)
-            if is_split and prefix_path:
-                if src_path.endswith(".rar"):
-                    prefix_path = src_path
-                res, archive_type = fileTester.is_support_normal_compressed_type(prefix_path)
-
+            is_split, archive_type = fileTester.is_support_split_volumn_type(src_path)
+            if is_split and archive_type:
                 # 2-2.遍历配置的分片压缩类型找到对应的解压命令
                 for type_key, type_value in SPLIT_COMPRESS_TYPE_KEY_MAPPING.items():
                     if archive_type in type_value:

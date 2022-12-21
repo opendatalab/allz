@@ -76,6 +76,31 @@ class FileTypeTester():
             return True, suffix_last_one
 
         return False, None
+
+    def is_support_split_volumn_type(self, file_path):
+        is_archive, suffix_str = self.is_split_volume_compressed_file(file_path)
+        if is_archive and suffix_str:
+            if suffix_str.endswith(".rar"):
+                return True, ".rar"
+
+            prefix_path = file_path[:-len(suffix_str)].rstrip(".")
+            type_to_match = f".{'.'.join(prefix_path.split('.')[-2:])}"
+            if type_to_match in SPLIT_COMPRESS_FILE_TYPES:
+                return True, type_to_match
+            
+            type_to_match = f".{'.'.join(prefix_path.split('.')[-3:-1])}"
+            if type_to_match in SPLIT_COMPRESS_FILE_TYPES:
+                return True, type_to_match
+
+            type_to_match = f".{prefix_path.split('.')[-1]}"
+            if type_to_match in SPLIT_COMPRESS_FILE_TYPES:
+                return True, type_to_match
+
+            type_to_match = f".{prefix_path.split('.')[-2]}"
+            if type_to_match in SPLIT_COMPRESS_FILE_TYPES:
+                return True, type_to_match
+
+        return False, ""
     
     def get_split_volume_compressed_file_path_list(self, file_path):
         is_archive, suffix_str = self.is_split_volume_compressed_file(file_path)
