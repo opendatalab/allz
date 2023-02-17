@@ -1,3 +1,5 @@
+from shlex import join
+
 from allz.libs.abstract_decompress import AbstractDecompress
 
 
@@ -10,9 +12,9 @@ class Z7SplitProcess(AbstractDecompress):
         if len(split_files) > 0:
             split_first_path = sorted(split_files)[0]
             if is_force_mode:
-                cmd = f"7z x {split_first_path} -o{dest_path} -aoa"
+                cmd = join(["7z", "x", split_first_path, f"-o{dest_path}", "-aoa"])
             else:
-                cmd = f"7z x {split_first_path} -o{dest_path} -aos"
+                cmd = join(["7z", "x", split_first_path, f"-o{dest_path}", "-aos"])
 
         return cmd or None
     

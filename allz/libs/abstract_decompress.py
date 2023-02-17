@@ -1,3 +1,4 @@
+from shlex import join
 import subprocess
 import time
 from abc import ABC, abstractmethod
@@ -24,7 +25,7 @@ class AbstractDecompress(ABC):
         rtn_code = 0
         stdout = ""
         stderr = ""
-        cmd = f"unar -q -D -o {dest_path} {src_path}"
+        cmd = join(["unar", "-q", "-D", "-o", dest_path, src_path])
         handle_cmd = ""
 
         if log_mode == LOG_MODE_QUIET or is_cli:
@@ -37,8 +38,6 @@ class AbstractDecompress(ABC):
                 split_files_path = self.file_type_tester.get_split_volume_compressed_file_path_list(src_path)
                 handle_cmd = self.split_decompress(split_files_path, dest_path, is_force_mode)
             
-            cmd = f"unar -q -D -o {dest_path} {src_path}"
-
             if not Path.exists(Path(dest_path)):
                 Path.mkdir(Path(str(dest_path).replace("\\ ", " ")), exist_ok=True, parents=True)
 

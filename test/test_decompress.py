@@ -6,7 +6,7 @@ from pathlib import Path
 
 from allz.decompress.decompress_main import DecompressMain
 from allz.decompress.gz_split_process import GzSplitProcess
-# from allz.decompress.tar_7z_split_process import Tar7zSplitProcess
+from allz.decompress.tar_7z_split_process import Tar7zSplitProcess
 from allz.decompress.rar_split_process import RarSplitProcess
 from allz.decompress.zip_process import ZipProcess
 from allz.libs.file_type_tester import FileTypeTester
@@ -17,12 +17,12 @@ CURRENT_DIR = pathlib.Path(__file__).resolve().parent
 def test_singel_file_normal_process():
     """Normal single compressed file test"""
     print(CURRENT_DIR)
-    src_path = Path.joinpath(CURRENT_DIR, "data/source/MNIST.zip")
-    dest_path = Path.joinpath(CURRENT_DIR, "data/dest")
+    src_path = str(Path.joinpath(CURRENT_DIR, "data/source/MNIST.zip"))
+    dest_path = str(Path.joinpath(CURRENT_DIR, "data/dest"))
 
     process = ZipProcess()
     process.main(src_path, dest_path)
-    assert Path.exists(dest_path) is True
+    assert Path.exists(Path(dest_path)) is True
 
 
 def test_single_file_recursive_path_process():
@@ -30,12 +30,12 @@ def test_single_file_recursive_path_process():
     decompress file to recursively path, like 11/22/33
     """
     print(CURRENT_DIR)
-    src_path = Path.joinpath(CURRENT_DIR, "data/source/MNIST.zip")
-    dest_path = Path.joinpath(CURRENT_DIR, "data/dest/11/22/33")
+    src_path = str(Path.joinpath(CURRENT_DIR, "data/source/MNIST.zip"))
+    dest_path = str(Path.joinpath(CURRENT_DIR, "data/dest/11/22/33"))
 
     process = ZipProcess()
     process.main(src_path, dest_path)
-    assert Path.exists(dest_path) is True
+    assert Path.exists(Path(dest_path)) is True
 
 
 def test_all_files_normal_files():
@@ -87,8 +87,11 @@ def test_relative_path_split_process():
     Split single compressed file test
     src_path and dest_path use the relative path
     """
-    src_path = "MNIST.tar.gz.0000"
-    dest_path = "../split_dest"
+    # src_path = "MNIST.tar.gz.0000"
+    src_path = str(Path.joinpath(CURRENT_DIR, "data/split_src/MNIST 123.tar.7z.001"))
+    # src_path = "split_src/MNIST 123.tar.7z.001"
+    # dest_path = "../split_dest"
+    dest_path = str(Path.joinpath(CURRENT_DIR, "data/split_dest"))
     target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
     os.chdir(target_path)
 
@@ -96,8 +99,12 @@ def test_relative_path_split_process():
     split_files = file_tester.get_split_volume_compressed_file_path_list(src_path)
     assert len(split_files) == 2
 
-    process = GzSplitProcess()
-    process.main(src_path, dest_path, is_split_file=True)
+    process = Tar7zSplitProcess()
+    # process = GzSplitProcess()
+    print(split_files[0], split_files[1])
+    # process.split_decompress(src_path, dest_path)
+    res = process.main(src_path, dest_path, is_split_file=True)
+    print(res)
     assert Path.exists(Path(dest_path + os.sep + "MNIST")) is True
 
 
@@ -113,7 +120,7 @@ def test_all_files_split_process():
 
     for archive_file in os.listdir(split_src_dir):
         if os.path.isfile(Path.joinpath(split_src_dir, archive_file)):
-            if ".tar.7z." in archive_file and not str(archive_file).endswith(".001"):
+            if (".tar.7z." in archive_file or ".7z" in archive_file) and not str(archive_file).endswith(".001"):
                 continue
 
             src_path = "/".join([str(split_src_dir), archive_file])
@@ -174,14 +181,14 @@ def test_with_path_split_regex_match():
                 "/home/work/srccode/github/allz/allz/libs/MNIST.tar.0002",
                 "/home/work/srccode/github/allz/allz/libs/MNIST.tar.0003",
                 "/home/work/srccode/github/allz/allz/libs/MNIST.tar.0004",
-                "/home/work/srccode/github/allz/allz/libs/MNIST.tar.7z.001",
-                "/home/work/srccode/github/allz/allz/libs/MNIST.tar.7z.002", 
+                "/home/work/srccode/github/allz/allz/libs/MNIST 123.tar.7z.001",
+                "/home/work/srccode/github/allz/allz/libs/MNIST 123.tar.7z.002", 
                 "/home/work/srccode/github/allz/allz/libs/MNIST.part1.rar", 
                 "/home/work/srccode/github/allz/allz/libs/MNIST.part2.rar", 
                 "/home/work/srccode/github/allz/allz/libs/MNIST.part3.rar", 
                 "/home/work/srccode/github/allz/allz/libs/MNIST.part4.rar", 
-                "/home/work/srccode/github/allz/allz/libs/MNIST.7z.001", 
-                "/home/work/srccode/github/allz/allz/libs/MNIST.7z.002",
+                "/home/work/srccode/github/allz/allz/libs/MNIST 123.7z.001", 
+                "/home/work/srccode/github/allz/allz/libs/MNIST 123.7z.002",
                 "/home/work/srccode/github/allz/allz/libs/NLST_CT.tar.gz.part0000",
                 "/home/work/srccode/github/allz/allz/libs/NLST_CT.tar.gz.part0001",
                 "/home/work/srccode/github/allz/allz/libs/NLST_CT.tar.gz.part0002",
@@ -231,13 +238,14 @@ def test_split_volumn_type_match():
 
 
 if __name__ == '__main__':
+    # pass
     # test_singel_file_normal_process()
     # test_single_file_recursive_path_process()
     # test_all_files_normal_files()
 
     # test_absolute_path_split_process()
-    # test_relative_path_split_process()
-    # test_all_files_split_process()
+    test_relative_path_split_process()
+    # # test_all_files_split_process()
 
     # test_split_volumn_return_path()
     # test_all_return_path()
@@ -246,4 +254,4 @@ if __name__ == '__main__':
     # test_with_path_split_regex_match()
 
     # test_single_files_split_process()
-    test_split_volumn_type_match()
+    # test_split_volumn_type_match()# 

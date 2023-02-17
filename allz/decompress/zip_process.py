@@ -1,3 +1,5 @@
+from shlex import join
+
 from allz.libs.abstract_decompress import AbstractDecompress
 
 
@@ -7,9 +9,9 @@ class ZipProcess(AbstractDecompress):
 
     def handle(self, src_path, dest_path, is_force_mode=False):
         if is_force_mode:
-            cmd = f"7z x {src_path} -o{dest_path} -aoa"
+            cmd = join(["7z", "x", src_path, f"-o{dest_path}", "-aoa"])
         else:
-            cmd = f"7z x {src_path} -o{dest_path} -aos"
+            cmd = join(["7z", "x", src_path, f"-o{dest_path}", "-aos"])
 
         return cmd or None
 

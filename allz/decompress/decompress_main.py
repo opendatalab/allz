@@ -20,9 +20,6 @@ class DecompressMain():
         archive_type_cmd_key = {}
         is_split_file = False
 
-        src_path = str(src_path).replace(" ", "\\ ")
-        dest_path = str(dest_path).replace(" ", "\\ ")
-
         # 1.判断压缩类型
         fileTester = FileTypeTester()
         if fileTester.is_normal_compressed_file(src_path):
