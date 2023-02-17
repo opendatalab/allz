@@ -87,11 +87,23 @@ def test_relative_path_split_process():
     Split single compressed file test
     src_path and dest_path use the relative path
     """
-    # src_path = "MNIST.tar.gz.0000"
-    src_path = str(Path.joinpath(CURRENT_DIR, "data/split_src/MNIST 123.tar.7z.001"))
-    # src_path = "split_src/MNIST 123.tar.7z.001"
-    # dest_path = "../split_dest"
-    dest_path = str(Path.joinpath(CURRENT_DIR, "data/split_dest"))
+    src_path = "MNIST.tar.gz.0000"
+    dest_path = "../split_dest"
+    target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
+    os.chdir(target_path)
+
+    file_tester = FileTypeTester()
+    split_files = file_tester.get_split_volume_compressed_file_path_list(src_path)
+    assert len(split_files) == 2
+
+    process = GzSplitProcess()
+    process.main(src_path, dest_path, is_split_file=True)
+    assert Path.exists(Path(dest_path + os.sep + "MNIST")) is True
+
+
+def test_space_path_split_process():
+    src_path = "MNIST 123.tar.7z.001"
+    dest_path = "../split_dest"
     target_path = Path.joinpath(CURRENT_DIR, "data/split_src")
     os.chdir(target_path)
 
@@ -100,11 +112,7 @@ def test_relative_path_split_process():
     assert len(split_files) == 2
 
     process = Tar7zSplitProcess()
-    # process = GzSplitProcess()
-    print(split_files[0], split_files[1])
-    # process.split_decompress(src_path, dest_path)
-    res = process.main(src_path, dest_path, is_split_file=True)
-    print(res)
+    process.main(src_path, dest_path, is_split_file=True)
     assert Path.exists(Path(dest_path + os.sep + "MNIST")) is True
 
 
