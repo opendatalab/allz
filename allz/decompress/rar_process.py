@@ -1,3 +1,5 @@
+from shlex import join
+
 from allz.libs.abstract_decompress import AbstractDecompress
 
 
@@ -7,9 +9,9 @@ class RarProcess(AbstractDecompress):
 
     def handle(self, src_path, dest_path, is_force_mode=False):
         if is_force_mode:
-            cmd = f"rar x {src_path} {dest_path} -o+"
+            cmd = join(["rar", "x", src_path, dest_path, "-o+"])
         else:
-            cmd = f"rar x {src_path} {dest_path} -o-"
+            cmd = join(["rar", "x", src_path, dest_path, "-o-"])
 
         return cmd or None
 

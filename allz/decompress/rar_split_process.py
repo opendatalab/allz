@@ -1,3 +1,5 @@
+from shlex import join
+
 from allz.libs.abstract_decompress import AbstractDecompress
 
 
@@ -17,8 +19,9 @@ class RarSplitProcess(AbstractDecompress):
         cmd = ""
         if len(split_files) > 0:
             if is_force_mode:
-                cmd = f"rar x {split_files[0]} {dest_path} -o+"
+                cmd = join(["rar", "x", split_files[0], dest_path, "-o+"])
             else:
-                cmd = f"rar x {split_files[0]} {dest_path} -o-"
+                cmd = join(["rar", "x", split_files[0], dest_path, "-o-"])
+                # cmd = f"rar x {split_files[0]} {dest_path} -o-"
 
         return cmd or None
